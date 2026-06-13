@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Syne:wght@400;500;700;800&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Syne", sans-serif;
+
+  --color-brand-beige: #FFFFFF;
+  --color-brand-cream: #FFFFFF;
+  --color-brand-concrete: #E3E1DB;
+  --color-brand-charcoal: #1C1C1C;
+  --color-brand-obsidian: #0D0D0D;
+}
+
+/* Custom styling for Zara / Senses India aesthetic layout */
+html, body {
+  background-color: var(--color-brand-beige);
+  color: var(--color-brand-charcoal);
+  font-family: var(--font-sans);
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbars - minimal, non-intrusive */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-brand-beige);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(28, 28, 28, 0.2);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-charcoal);
+}
+
+/* Elegant image transitions */
+.image-zoom-hover {
+  transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.image-zoom-hover:hover {
+  transform: scale(1.04);
+}
+
+/* Glassmorphism utility for sticky navbar */
+.glass-nav {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background-color: rgba(249, 248, 246, 0.85);
+  border-bottom: 1px solid rgba(28, 28, 28, 0.04);
+}
+
+/* Asymmetric grids & padding */
+.editorial-container {
+  padding-left: 5vw;
+  padding-right: 5vw;
+}
+
+/* Custom scroll indicator animation */
+@keyframes scrollDown {
+  0% { transform: translateY(0); opacity: 0; }
+  30% { opacity: 1; }
+  60% { opacity: 1; }
+  100% { transform: translateY(16px); opacity: 0; }
+}
+.scroll-indicator-dot {
+  animation: scrollDown 2s infinite ease-in-out;
+}
