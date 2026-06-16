@@ -85,92 +85,90 @@ def seed_db():
         
         swatches = [{"name": c["name"], "hex": c["hex"]} for c in colors]
 
-        def get_aligned_colors_and_images(item_color_name, style_prefix):
-            matching_color_idx = next(i for i, c in enumerate(colors) if c["name"].lower() == item_color_name.lower())
-            
-            aligned_colors = swatches[matching_color_idx:] + swatches[:matching_color_idx]
-            
-            suffix_list = [c["suffix"] for c in colors]
-            aligned_images = [f"/{style_prefix}-{s}.png" for s in suffix_list]
-            aligned_images = aligned_images[matching_color_idx:] + aligned_images[:matching_color_idx]
-            
-            return aligned_colors, aligned_images
+        def get_all_images(style_prefix):
+            img_list = []
+            for c in colors:
+                suffix = c["suffix"]
+                # 3 angles for each color
+                img_list.extend([
+                    f"/{style_prefix}-{suffix}-front.png",
+                    f"/{style_prefix}-{suffix}-back.png",
+                    f"/{style_prefix}-{suffix}-close.png"
+                ])
+            return img_list
 
         print("Seeding clothing items...")
         
-        # 1. Plain Regular T-Shirts: 2 GSMs (160, 180) * 4 Colors = 8 items
+        # 1. Plain Regular T-Shirts: 2 GSMs (160, 180) = 2 items
         for gsm in [160, 180]:
-            for color in colors:
-                name = f"Plain Regular T-Shirt - {gsm} GSM ({color['name']})"
-                description = f"A premium {gsm} GSM combed cotton single jersey regular-fit t-shirt in {color['name']}. Tailored for high-end wholesale and custom coordinates, bio-washed for maximum softness."
-                
-                item_colors, item_images = get_aligned_colors_and_images(color["name"], "regular")
-                images = get_override(name, item_images)
-                if isinstance(images, str):
-                    images = [images]
-                
-                item = ClothingItem(
-                    collection_id=plain_regular_col.id,
-                    name=name,
-                    description=description,
-                    fabric_composition="100% Cotton",
-                    gsm_weight=gsm,
-                    knit_structure="Single Jersey",
-                    finish="Bio-Washed",
-                    available_colors=item_colors,
-                    images=images
-                )
-                db.add(item)
-                
-        # 2. Plain Oversized T-Shirts: 2 GSMs (220, 240) * 4 Colors = 8 items
-        for gsm in [220, 240]:
-            for color in colors:
-                name = f"Plain Oversized T-Shirt - {gsm} GSM ({color['name']})"
-                description = f"A heavy {gsm} GSM combed cotton loop knit oversized t-shirt in {color['name']}. Features relaxed drop-shoulder tailoring and substantial drape with a standard softener finish."
-                
-                item_colors, item_images = get_aligned_colors_and_images(color["name"], "oversized")
-                images = get_override(name, item_images)
-                if isinstance(images, str):
-                    images = [images]
-                
-                item = ClothingItem(
-                    collection_id=plain_oversized_col.id,
-                    name=name,
-                    description=description,
-                    fabric_composition="100% Cotton",
-                    gsm_weight=gsm,
-                    knit_structure="Loop Knit",
-                    finish="Standard Softener",
-                    available_colors=item_colors,
-                    images=images
-                )
-                db.add(item)
-
-        # 3. Polo T-Shirts: 1 GSM (220) * 4 Colors = 4 items
-        for color in colors:
-            name = f"Polo T-Shirt - 220 GSM ({color['name']})"
-            description = f"A classic 220 GSM pique polo t-shirt in {color['name']}. Breathable knit structure, structured ribbed collar build, and durable standard softener finish."
+            name = f"Plain Regular T-Shirt - {gsm} GSM"
+            description = f"A premium {gsm} GSM combed cotton single jersey regular-fit t-shirt. Tailored for high-end wholesale and custom coordinates, bio-washed for maximum softness."
             
-            item_colors, item_images = get_aligned_colors_and_images(color["name"], "polo")
-            images = get_override(name, item_images)
-            if isinstance(images, str):
-                images = [images]
+            images = get_all_images("regular")
+            override_images = get_override(name, None)
+            if override_images:
+                images = override_images if isinstance(override_images, list) else [override_images]
             
             item = ClothingItem(
-                collection_id=polo_col.id,
+                collection_id=plain_regular_col.id,
                 name=name,
                 description=description,
                 fabric_composition="100% Cotton",
-                gsm_weight=220,
-                knit_structure="Polo / Pique",
+                gsm_weight=gsm,
+                knit_structure="Single Jersey",
+                finish="Bio-Washed",
+                available_colors=swatches,
+                images=images
+            )
+            db.add(item)
+                
+        # 2. Plain Oversized T-Shirts: 2 GSMs (220, 240) = 2 items
+        for gsm in [220, 240]:
+            name = f"Plain Oversized T-Shirt - {gsm} GSM"
+            description = f"A heavy {gsm} GSM combed cotton loop knit oversized t-shirt. Features relaxed drop-shoulder tailoring and substantial drape with a standard softener finish."
+            
+            images = get_all_images("oversized")
+            override_images = get_override(name, None)
+            if override_images:
+                images = override_images if isinstance(override_images, list) else [override_images]
+            
+            item = ClothingItem(
+                collection_id=plain_oversized_col.id,
+                name=name,
+                description=description,
+                fabric_composition="100% Cotton",
+                gsm_weight=gsm,
+                knit_structure="Loop Knit",
                 finish="Standard Softener",
-                available_colors=item_colors,
+                available_colors=swatches,
                 images=images
             )
             db.add(item)
 
+        # 3. Polo T-Shirts: 1 GSM (220) = 1 item
+        name = "Polo T-Shirt - 220 GSM"
+        description = "A classic 220 GSM pique polo t-shirt. Breathable knit structure, structured ribbed collar build, and durable standard softener finish."
+        
+        images = get_all_images("polo")
+        override_images = get_override(name, None)
+        if override_images:
+            images = override_images if isinstance(override_images, list) else [override_images]
+        
+        item = ClothingItem(
+            collection_id=polo_col.id,
+            name=name,
+            description=description,
+            fabric_composition="100% Cotton",
+            gsm_weight=220,
+            knit_structure="Polo / Pique",
+            finish="Standard Softener",
+            available_colors=swatches,
+            images=images
+        )
+        db.add(item)
+
         db.commit()
-        print("Database successfully seeded with 20 premium T-shirt variants!")
+        print("Database successfully seeded with 5 premium T-shirt variants!")
 
     except Exception as e:
         db.rollback()

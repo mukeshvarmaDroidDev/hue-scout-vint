@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight, Check } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
@@ -9,6 +9,43 @@ interface ItemDetailsModalProps {
   onClose: () => void;
 }
 
+const ImageZoom: React.FC<{ src: string; alt: string }> = ({ src, alt }) => {
+  const [backgroundPosition, setBackgroundPosition] = useState('0% 0%');
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - left) / width) * 100;
+    const y = ((e.clientY - top) / height) * 100;
+    setBackgroundPosition(`${x}% ${y}%`);
+  };
+
+  return (
+    <div 
+      className="relative w-full h-full overflow-hidden cursor-zoom-in bg-brand-cream"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onMouseMove={handleMouseMove}
+    >
+      <img 
+        src={src} 
+        alt={alt} 
+        className={`w-full h-full object-cover transition-opacity duration-300 ${isHovered ? 'opacity-0' : 'opacity-100'}`}
+      />
+      {isHovered && (
+        <div 
+          className="absolute inset-0 bg-no-repeat transition-all duration-75 pointer-events-none"
+          style={{
+            backgroundImage: `url(${src})`,
+            backgroundPosition: backgroundPosition,
+            backgroundSize: '250%', // Premium 2.5x zoom
+          }}
+        />
+      )}
+    </div>
+  );
+};
+
 export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({ item, onClose }) => {
   const { addToInquiry } = useApp();
   const [activeImgIdx, setActiveImgIdx] = useState(0);
@@ -16,12 +53,10 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({ item, onClos
   const [quantity, setQuantity] = useState(100); // B2B MOQ defaults to 100
   const [added, setAdded] = useState(false);
 
-  useEffect(() => {
-    const idx = item.available_colors.findIndex(c => c.hex === selectedColor.hex);
-    if (idx > -1 && idx < item.images.length) {
-      setActiveImgIdx(idx);
-    }
-  }, [selectedColor, item.available_colors, item.images]);
+  const colorIdx = item.available_colors.findIndex(c => c.hex === selectedColor.hex);
+  const colorImages = (colorIdx > -1 && item.images.length >= (colorIdx + 1) * 3)
+    ? item.images.slice(colorIdx * 3, (colorIdx + 1) * 3)
+    : item.images.slice(0, 3);
 
   const handleAddToInquiry = () => {
     addToInquiry(item, selectedColor, quantity);
@@ -33,16 +68,16 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({ item, onClos
   };
 
   const handleNextImage = () => {
-    setActiveImgIdx(prev => (prev + 1) % item.images.length);
+    setActiveImgIdx(prev => (prev + 1) % colorImages.length);
   };
 
   const handlePrevImage = () => {
-    setActiveImgIdx(prev => (prev - 1 + item.images.length) % item.images.length);
+    setActiveImgIdx(prev => (prev - 1 + colorImages.length) % colorImages.length);
   };
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-end overflow-hidden">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 overflow-hidden">
         {/* Backdrop */}
         <motion.div 
           initial={{ opacity: 0 }}
@@ -52,13 +87,13 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({ item, onClos
           className="absolute inset-0 bg-brand-obsidian/30 backdrop-blur-sm cursor-pointer"
         />
 
-        {/* Modal Sheet Panel */}
+        {/* Centered Modal Panel Card */}
         <motion.div 
-          initial={{ x: '100%' }}
-          animate={{ x: 0 }}
-          exit={{ x: '100%' }}
-          transition={{ type: 'tween', duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
-          className="relative z-10 w-full max-w-2xl md:max-w-4xl h-full bg-brand-beige flex flex-col justify-between shadow-2xl overflow-y-auto"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.95 }}
+          transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
+          className="relative z-10 w-full max-w-4xl max-h-[90vh] bg-brand-beige flex flex-col justify-between shadow-2xl border border-brand-concrete/30 overflow-y-auto rounded-lg"
         >
           {/* Close button */}
           <button 
@@ -72,16 +107,15 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({ item, onClos
             {/* 2-Column Responsive Layout */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 items-start">
               
-              {/* Left Column: Gallery Section (decreased width and height) */}
+              {/* Left Column: Gallery Section */}
               <div className="md:col-span-5 space-y-4">
                 <div className="relative aspect-[3/4] w-full max-w-sm mx-auto bg-brand-cream overflow-hidden border border-brand-concrete/30">
-                  <img 
-                    src={item.images[activeImgIdx]} 
+                  <ImageZoom 
+                    src={colorImages[activeImgIdx]} 
                     alt={`${item.name} image ${activeImgIdx + 1}`} 
-                    className="w-full h-full object-cover transition-all duration-500"
                   />
 
-                  {item.images.length > 1 && (
+                  {colorImages.length > 1 && (
                     <>
                       <button 
                         onClick={handlePrevImage} 
@@ -98,7 +132,26 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({ item, onClos
                     </>
                   )}
                 </div>
+
+                {/* Active View Label */}
+                <div className="text-[10px] uppercase tracking-[0.2em] text-brand-charcoal/60 text-center font-bold">
+                  {activeImgIdx === 0 ? "Front View" : activeImgIdx === 1 ? "Back View" : "Texture Close-up"}
+                </div>
+
+                {/* Thumbnails Row */}
+                <div className="flex justify-center gap-2 overflow-x-auto py-2">
+                  {colorImages.map((img, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setActiveImgIdx(idx)}
+                      className={`w-12 h-16 border bg-brand-cream transition-all flex-shrink-0 cursor-pointer ${activeImgIdx === idx ? 'border-brand-charcoal ring-1 ring-brand-charcoal/50' : 'border-brand-concrete/40 opacity-70 hover:opacity-100'}`}
+                    >
+                      <img src={img} alt={`angle ${idx + 1}`} className="w-full h-full object-cover" />
+                    </button>
+                  ))}
+                </div>
               </div>
+
 
               {/* Right Column: Content Specifications & Swatches */}
               <div className="md:col-span-7 space-y-6">
@@ -142,7 +195,10 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({ item, onClos
                     {item.available_colors.map((color, idx) => (
                       <button
                         key={idx}
-                        onClick={() => setSelectedColor(color)}
+                        onClick={() => {
+                          setSelectedColor(color);
+                          setActiveImgIdx(0);
+                        }}
                         className={`flex items-center space-x-2 px-3 py-1.5 border text-xs tracking-wide cursor-pointer transition-all ${selectedColor.hex === color.hex ? 'border-brand-charcoal bg-brand-charcoal text-brand-beige' : 'border-brand-concrete hover:border-brand-charcoal/50 text-brand-charcoal bg-white'}`}
                       >
                         <span className="w-3.5 h-3.5 rounded-full border border-brand-charcoal/10" style={{ backgroundColor: color.hex }} />

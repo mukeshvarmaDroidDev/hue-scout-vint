@@ -97,6 +97,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         updated[existingIdx].quantity += quantity;
         return updated;
       }
+      const colorIdx = item.available_colors.findIndex((c: any) => c.hex === color.hex);
+      const image = (colorIdx > -1 && item.images.length > colorIdx * 3)
+        ? item.images[colorIdx * 3]
+        : item.images[0];
+
       return [...prev, {
         id: item.id,
         name: item.name,
@@ -104,7 +109,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         gsm_weight: item.gsm_weight,
         selectedColor: color,
         quantity,
-        image: item.images[0]
+        image
       }];
     });
   };
