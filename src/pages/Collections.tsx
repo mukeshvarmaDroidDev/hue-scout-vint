@@ -58,13 +58,15 @@ export const Collections: React.FC = () => {
       }
     }
 
-    // Filter by GSM fabric weight (tailored for T-shirt weights 160/180/200 GSM)
+    // Filter by GSM fabric weight (tailored for T-shirt weights 160/180/220/240 GSM)
     if (gsmFilter === 'light') {
-      result = result.filter(item => item.gsm_weight <= 165);
+      result = result.filter(item => item.gsm_weight === 160);
     } else if (gsmFilter === 'medium') {
-      result = result.filter(item => item.gsm_weight > 165 && item.gsm_weight <= 190);
-    } else if (gsmFilter === 'heavy') {
-      result = result.filter(item => item.gsm_weight > 190);
+      result = result.filter(item => item.gsm_weight === 180);
+    } else if (gsmFilter === 'heavy220') {
+      result = result.filter(item => item.gsm_weight === 220);
+    } else if (gsmFilter === 'heavy240') {
+      result = result.filter(item => item.gsm_weight === 240);
     }
 
     setFilteredItems(result);
@@ -153,10 +155,16 @@ export const Collections: React.FC = () => {
                       Mid-weight (180 GSM)
                     </button>
                     <button
-                      onClick={() => setGsmFilter('heavy')}
-                      className={`text-left hover:text-brand-charcoal cursor-pointer transition-colors ${gsmFilter === 'heavy' ? 'text-brand-charcoal font-bold' : 'text-brand-charcoal/50'}`}
+                      onClick={() => setGsmFilter('heavy220')}
+                      className={`text-left hover:text-brand-charcoal cursor-pointer transition-colors ${gsmFilter === 'heavy220' ? 'text-brand-charcoal font-bold' : 'text-brand-charcoal/50'}`}
                     >
-                      Heavyweight (200 GSM)
+                      Heavyweight (220 GSM)
+                    </button>
+                    <button
+                      onClick={() => setGsmFilter('heavy240')}
+                      className={`text-left hover:text-brand-charcoal cursor-pointer transition-colors ${gsmFilter === 'heavy240' ? 'text-brand-charcoal font-bold' : 'text-brand-charcoal/50'}`}
+                    >
+                      Heavyweight (240 GSM)
                     </button>
                   </div>
                 </div>

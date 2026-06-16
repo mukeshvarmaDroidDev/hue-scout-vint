@@ -28,7 +28,7 @@ export const Home: React.FC = () => {
             Ready to initiate a custom collection or bulk sourcing order?
           </h2>
           <p className="text-xs text-brand-charcoal/60 max-w-lg tracking-wider leading-relaxed">
-            Submit your fabric requirements, estimated unit counts, and branding specifications. Our showroom managers will coordinate with our European weaving mill to verify logistics.
+            Submit your fabric requirements, estimated unit counts, and branding specifications. Our showroom managers will coordinate with our weaving mill in Andhra Pradesh, India to verify logistics.
           </p>
           <div className="pt-4">
             <Link 

@@ -8,6 +8,8 @@ class ClothingItemBase(BaseModel):
     gsm_weight: int = Field(..., ge=30, le=1000, description="GSM weight of the fabric")
     available_colors: List[Dict[str, str]] = Field(..., description="Wholesale color swatches, e.g. [{'name': 'Cream', 'hex': '#FDFBF7'}]")
     images: List[str] = Field(..., description="Array of clothing lookbook image URLs")
+    knit_structure: Optional[str] = Field(None, description="Knit structure, e.g., Single Jersey")
+    finish: Optional[str] = Field(None, description="Required finish, e.g., Bio-Washed")
 
 class ClothingItemResponse(ClothingItemBase):
     id: int

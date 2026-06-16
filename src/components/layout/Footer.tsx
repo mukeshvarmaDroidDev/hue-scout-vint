@@ -14,25 +14,26 @@ export const Footer: React.FC = () => {
           </p>
         </div>
 
-        {/* Showrooms & Mills */}
+        {/* Production Hubs & Contact */}
         <div className="space-y-4">
           <h4 className="text-xs font-semibold tracking-[0.2em] uppercase text-brand-beige/80">Production Hubs</h4>
           <ul className="space-y-2 text-xs text-brand-beige/50 tracking-wider">
-            <li>Weaving Mill: Ghent, Belgium</li>
+            <li>Weaving Mill: Andhra Pradesh, India</li>
             <li>Spinning Mill: Coimbatore, India</li>
-            <li>Garment Assembly: Porto, Portugal</li>
-            <li>Sourcing Center: Istanbul, Turkey</li>
+            <li>Garment Assembly: Chennai, India</li>
           </ul>
         </div>
 
-        {/* Corporate Column */}
+        {/* Contact Column */}
         <div className="space-y-4">
-          <h4 className="text-xs font-semibold tracking-[0.2em] uppercase text-brand-beige/80">Showrooms</h4>
+          <h4 className="text-xs font-semibold tracking-[0.2em] uppercase text-brand-beige/80">Contact</h4>
           <ul className="space-y-2 text-xs text-brand-beige/50 tracking-wider">
-            <li>Paris: Place des Vosges</li>
-            <li>New York: SOHO Showroom</li>
-            <li>Milan: Via Montenapoleone</li>
-            <li>London: Savile Row Sourcing</li>
+            <li>Wholesale & Sourcing Desk</li>
+            <li>
+              <a href="mailto:huescoutcb@gmail.com" className="hover:text-brand-beige transition-colors">
+                huescoutcb@gmail.com
+              </a>
+            </li>
           </ul>
         </div>
 

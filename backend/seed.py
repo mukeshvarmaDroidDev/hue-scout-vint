@@ -47,24 +47,32 @@ def seed_db():
         db.add(default_partner)
 
         print("Creating T-Shirt collections...")
-        round_neck_col = Collection(
-            title="Round Neck T-Shirts",
-            slug="round-neck-t-shirts",
-            description="Premium 100% bio-wash combed cotton round neck t-shirts, tailored for luxury screen-printing and everyday coordinates.",
+        plain_regular_col = Collection(
+            title="Plain Regular T-Shirts",
+            slug="plain-regular-t-shirts",
+            description="Premium combed cotton single jersey regular-fit t-shirts. Expertly tailored and bio-washed for luxury touch and everyday coordinates.",
             season="SS 2026",
-            cover_image_url=get_override("Round Neck T-Shirts", "/round-neck-black.png"),
+            cover_image_url=get_override("Plain Regular T-Shirts", "/round-neck-black.png"),
+            is_active=True
+        )
+        plain_oversized_col = Collection(
+            title="Plain Oversized T-Shirts",
+            slug="plain-oversized-t-shirts",
+            description="Heavyweight loop knit oversized t-shirts. Relaxed shoulder drops and structured drape for clean modern streetwear silhouettes.",
+            season="SS 2026",
+            cover_image_url=get_override("Plain Oversized T-Shirts", "/round-neck-black.png"),
             is_active=True
         )
         polo_col = Collection(
             title="Polo T-Shirts",
             slug="polo-t-shirts",
-            description="Classic pique collared polo t-shirts in various weights, offering structural collar builds and breathable fits.",
+            description="Classic pique collared polo t-shirts in premium weights, offering structural collar builds and breathable fits.",
             season="SS 2026",
             cover_image_url=get_override("Polo T-Shirts", "/polo-black.png"),
             is_active=True
         )
         
-        db.add_all([round_neck_col, polo_col])
+        db.add_all([plain_regular_col, plain_oversized_col, polo_col])
         db.commit()  # Generate IDs
 
         # Colors and Swatches
@@ -76,48 +84,93 @@ def seed_db():
         ]
         
         swatches = [{"name": c["name"], "hex": c["hex"]} for c in colors]
-        gsms = [160, 180, 200]
 
-        print("Seeding Round Neck T-Shirts (12 items)...")
-        for gsm in gsms:
+        def get_aligned_colors_and_images(item_color_name, style_prefix):
+            matching_color_idx = next(i for i, c in enumerate(colors) if c["name"].lower() == item_color_name.lower())
+            
+            aligned_colors = swatches[matching_color_idx:] + swatches[:matching_color_idx]
+            
+            suffix_list = [c["suffix"] for c in colors]
+            aligned_images = [f"/{style_prefix}-{s}.png" for s in suffix_list]
+            aligned_images = aligned_images[matching_color_idx:] + aligned_images[:matching_color_idx]
+            
+            return aligned_colors, aligned_images
+
+        print("Seeding clothing items...")
+        
+        # 1. Plain Regular T-Shirts: 2 GSMs (160, 180) * 4 Colors = 8 items
+        for gsm in [160, 180]:
             for color in colors:
-                name = f"Bio Wash Round Neck T-Shirt - {gsm} GSM ({color['name']})"
-                description = f"A premium {gsm} GSM 100% combed cotton round neck bio-washed T-shirt in {color['name']}. Soft, durable, and perfect for printing or custom apparel lines."
-                default_image = f"/round-neck-{color['suffix']}.png"
-                image_url = get_override(name, default_image)
+                name = f"Plain Regular T-Shirt - {gsm} GSM ({color['name']})"
+                description = f"A premium {gsm} GSM combed cotton single jersey regular-fit t-shirt in {color['name']}. Tailored for high-end wholesale and custom coordinates, bio-washed for maximum softness."
+                
+                item_colors, item_images = get_aligned_colors_and_images(color["name"], "regular")
+                images = get_override(name, item_images)
+                if isinstance(images, str):
+                    images = [images]
                 
                 item = ClothingItem(
-                    collection_id=round_neck_col.id,
+                    collection_id=plain_regular_col.id,
                     name=name,
                     description=description,
-                    fabric_composition="100% Bio Wash Combed Cotton",
+                    fabric_composition="100% Cotton",
                     gsm_weight=gsm,
-                    available_colors=swatches,
-                    images=[image_url]
+                    knit_structure="Single Jersey",
+                    finish="Bio-Washed",
+                    available_colors=item_colors,
+                    images=images
+                )
+                db.add(item)
+                
+        # 2. Plain Oversized T-Shirts: 2 GSMs (220, 240) * 4 Colors = 8 items
+        for gsm in [220, 240]:
+            for color in colors:
+                name = f"Plain Oversized T-Shirt - {gsm} GSM ({color['name']})"
+                description = f"A heavy {gsm} GSM combed cotton loop knit oversized t-shirt in {color['name']}. Features relaxed drop-shoulder tailoring and substantial drape with a standard softener finish."
+                
+                item_colors, item_images = get_aligned_colors_and_images(color["name"], "oversized")
+                images = get_override(name, item_images)
+                if isinstance(images, str):
+                    images = [images]
+                
+                item = ClothingItem(
+                    collection_id=plain_oversized_col.id,
+                    name=name,
+                    description=description,
+                    fabric_composition="100% Cotton",
+                    gsm_weight=gsm,
+                    knit_structure="Loop Knit",
+                    finish="Standard Softener",
+                    available_colors=item_colors,
+                    images=images
                 )
                 db.add(item)
 
-        print("Seeding Polo T-Shirts (12 items)...")
-        for gsm in gsms:
-            for color in colors:
-                name = f"Premium Pique Polo T-Shirt - {gsm} GSM ({color['name']})"
-                description = f"A high-end {gsm} GSM 100% combed cotton pique polo shirt in {color['name']}. Features a structured collar, buttons, and breathable fit."
-                default_image = f"/polo-{color['suffix']}.png"
-                image_url = get_override(name, default_image)
-                
-                item = ClothingItem(
-                    collection_id=polo_col.id,
-                    name=name,
-                    description=description,
-                    fabric_composition="100% Premium Combed Cotton Pique",
-                    gsm_weight=gsm,
-                    available_colors=swatches,
-                    images=[image_url]
-                )
-                db.add(item)
+        # 3. Polo T-Shirts: 1 GSM (220) * 4 Colors = 4 items
+        for color in colors:
+            name = f"Polo T-Shirt - 220 GSM ({color['name']})"
+            description = f"A classic 220 GSM pique polo t-shirt in {color['name']}. Breathable knit structure, structured ribbed collar build, and durable standard softener finish."
+            
+            item_colors, item_images = get_aligned_colors_and_images(color["name"], "polo")
+            images = get_override(name, item_images)
+            if isinstance(images, str):
+                images = [images]
+            
+            item = ClothingItem(
+                collection_id=polo_col.id,
+                name=name,
+                description=description,
+                fabric_composition="100% Cotton",
+                gsm_weight=220,
+                knit_structure="Polo / Pique",
+                finish="Standard Softener",
+                available_colors=item_colors,
+                images=images
+            )
+            db.add(item)
 
         db.commit()
-        print("Database successfully seeded with 24 premium T-shirt variants!")
+        print("Database successfully seeded with 20 premium T-shirt variants!")
 
     except Exception as e:
         db.rollback()

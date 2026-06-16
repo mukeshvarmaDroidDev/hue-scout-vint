@@ -17,6 +17,8 @@ export interface ClothingItem {
   gsm_weight: number;
   available_colors: ColorSwatch[];
   images: string[];
+  knit_structure?: string;
+  finish?: string;
 }
 
 export interface Collection {
@@ -123,7 +125,7 @@ export const GridShowroom: React.FC = () => {
 
         {/* Asymmetric Showroom Grid */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-y-16 md:gap-x-8 lg:gap-x-12">
-          {items.slice(0, 6).map((item, idx) => {
+          {items.slice(0, 4).map((item, idx) => {
             // Asymmetric grid spanning logic:
             // Index 0: spans 7 columns (large)
             // Index 1: spans 5 columns

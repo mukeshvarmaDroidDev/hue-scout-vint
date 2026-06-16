@@ -14,5 +14,7 @@ class ClothingItem(Base):
     gsm_weight: Mapped[int] = mapped_column(Integer, nullable=False)  # e.g., 340 GSM
     available_colors: Mapped[list] = mapped_column(JSONB, nullable=False)  # JSONB list of colors e.g. [{"name": "Charcoal", "hex": "#1A1A1A"}]
     images: Mapped[list] = mapped_column(JSONB, nullable=False)  # JSONB array of image URLs
+    knit_structure: Mapped[str] = mapped_column(String(255), nullable=True)  # e.g., "Single Jersey"
+    finish: Mapped[str] = mapped_column(String(255), nullable=True)  # e.g., "Bio-Washed"
 
     collection: Mapped["Collection"] = relationship("Collection", back_populates="items")

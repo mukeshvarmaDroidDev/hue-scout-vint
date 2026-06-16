@@ -62,7 +62,7 @@ export const BulkProduction: React.FC = () => {
               <div className="absolute bottom-6 left-6 right-6 backdrop-blur-md bg-white/80 border border-white/20 p-4 shadow-md flex items-center justify-between">
                 <div className="space-y-0.5">
                   <p className="text-[9px] uppercase tracking-widest font-bold text-brand-charcoal">Cotton Yarn Studio</p>
-                  <p className="text-[10px] text-brand-charcoal/60 font-serif italic">Porto Atelier Facility</p>
+                  <p className="text-[10px] text-brand-charcoal/60 font-serif italic">Chennai Atelier Facility</p>
                 </div>
                 <span className="text-[9px] uppercase tracking-[0.15em] text-brand-charcoal/40 font-semibold">100% Traceable</span>
               </div>
