@@ -98,8 +98,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         return updated;
       }
       const colorIdx = item.available_colors.findIndex((c: any) => c.hex === color.hex);
-      const image = (colorIdx > -1 && item.images.length > colorIdx * 3)
-        ? item.images[colorIdx * 3]
+      const image = (colorIdx > -1 && item.images.length > colorIdx * 4)
+        ? item.images[colorIdx * 4]
         : item.images[0];
 
       return [...prev, {

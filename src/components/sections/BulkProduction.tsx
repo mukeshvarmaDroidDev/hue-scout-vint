@@ -31,7 +31,7 @@ export const BulkProduction: React.FC = () => {
   ];
 
   return (
-    <section id="production" className="py-32 bg-[#FAF9F6] border-t border-brand-charcoal/5 scroll-mt-20">
+    <section id="production" className="py-32 bg-brand-cream border-t border-brand-charcoal/5 scroll-mt-20">
       <div className="editorial-container mx-auto space-y-24">
         
         {/* Title and Intro */}
@@ -117,7 +117,7 @@ export const BulkProduction: React.FC = () => {
           <div className="z-10 w-full lg:w-auto pt-2 lg:pt-0">
             <Link
               to="/inquire"
-              className="w-full lg:w-auto text-xs uppercase tracking-[0.25em] font-bold text-brand-charcoal bg-[#FAF9F6] border border-transparent px-10 py-5 hover:bg-transparent hover:text-[#FAF9F6] hover:border-[#FAF9F6]/20 transition-all duration-300 cursor-pointer whitespace-nowrap flex items-center justify-center gap-2 group-hover:translate-x-1 transform transition-transform"
+              className="w-full lg:w-auto text-xs uppercase tracking-[0.25em] font-bold text-brand-charcoal bg-brand-beige border border-transparent px-10 py-5 hover:bg-transparent hover:text-brand-beige hover:border-brand-beige/20 transition-all duration-300 cursor-pointer whitespace-nowrap flex items-center justify-center gap-2 group-hover:translate-x-1 transform transition-transform"
             >
               Request Specs & Pricing
             </Link>

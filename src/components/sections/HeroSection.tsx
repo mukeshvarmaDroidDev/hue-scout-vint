@@ -10,9 +10,9 @@ export const HeroSection: React.FC = () => {
   return (
     <div className="relative h-screen w-full overflow-hidden bg-brand-cream">
       {/* Editorial Parallax Lookbook Image */}
-      <div 
+      <div
         className="absolute inset-0 bg-cover bg-center opacity-100 scale-105 transition-transform duration-[6000ms] ease-out animate-pulse-slow"
-        style={{ 
+        style={{
           backgroundImage: "url('https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=1800')",
         }}
       />
@@ -24,24 +24,26 @@ export const HeroSection: React.FC = () => {
       <div className="absolute inset-0 flex flex-col justify-end pb-[15vh]">
         <div className="editorial-container mx-auto w-full space-y-6 md:space-y-8 select-none">
           <p className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.4em] text-brand-charcoal/70">
-            A Atelier & Co. Production Facility
+
+            Premium Apparel Manufacturing & Global Export Solutions
           </p>
           <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-light tracking-wide text-brand-charcoal leading-[1.15] max-w-4xl">
-            Architectural Form. <br />
-            <span className="italic">Ethical Sourcing.</span>
+            Crafted for Brands.  <br />
+            <span className="italic">Produced for Scale.</span>
           </h1>
           <p className="text-xs md:text-sm text-brand-charcoal/70 tracking-[0.15em] font-light max-w-xl leading-relaxed">
-            A premium digital showroom displaying bulk linen collections, dense cottons, and custom cashmere knitwear for high-end boutique houses and verified B2B retail groups.
+            {/* A premium digital showroom displaying bulk linen collections, dense cottons, and custom cashmere knitwear for high-end boutique houses and verified B2B retail groups. */}
+
           </p>
 
           <div className="pt-4 flex flex-col sm:flex-row gap-4">
-            <button 
+            <button
               onClick={handleScrollToShowroom}
               className="text-xs uppercase tracking-[0.25em] font-semibold text-brand-beige bg-brand-charcoal px-8 py-4 border border-brand-charcoal hover:bg-transparent hover:text-brand-charcoal transition-all duration-300 w-fit cursor-pointer"
             >
               Browse Showroom
             </button>
-            <Link 
+            <Link
               to="/inquire"
               className="text-xs uppercase tracking-[0.25em] font-semibold text-brand-charcoal bg-transparent px-8 py-4 border border-brand-charcoal/30 hover:border-brand-charcoal transition-all duration-300 w-fit cursor-pointer flex items-center justify-center"
             >
@@ -52,7 +54,7 @@ export const HeroSection: React.FC = () => {
       </div>
 
       {/* Scroll Indicator */}
-      <div 
+      <div
         onClick={handleScrollToShowroom}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer group"
       >

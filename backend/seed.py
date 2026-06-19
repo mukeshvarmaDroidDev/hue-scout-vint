@@ -48,19 +48,19 @@ def seed_db():
 
         print("Creating T-Shirt collections...")
         plain_regular_col = Collection(
-            title="Plain Regular T-Shirts",
-            slug="plain-regular-t-shirts",
+            title="Regular T-Shirts",
+            slug="regular-t-shirts",
             description="Premium combed cotton single jersey regular-fit t-shirts. Expertly tailored and bio-washed for luxury touch and everyday coordinates.",
             season="SS 2026",
-            cover_image_url=get_override("Plain Regular T-Shirts", "/round-neck-black.png"),
+            cover_image_url=get_override("Regular T-Shirts", "/round-neck-black.png"),
             is_active=True
         )
         plain_oversized_col = Collection(
-            title="Plain Oversized T-Shirts",
-            slug="plain-oversized-t-shirts",
+            title="Oversized T-Shirts",
+            slug="oversized-t-shirts",
             description="Heavyweight loop knit oversized t-shirts. Relaxed shoulder drops and structured drape for clean modern streetwear silhouettes.",
             season="SS 2026",
-            cover_image_url=get_override("Plain Oversized T-Shirts", "/round-neck-black.png"),
+            cover_image_url=get_override("Oversized T-Shirts", "/round-neck-black.png"),
             is_active=True
         )
         polo_col = Collection(
@@ -89,19 +89,20 @@ def seed_db():
             img_list = []
             for c in colors:
                 suffix = c["suffix"]
-                # 3 angles for each color
+                # 4 images per colorway: Front, Back, Branded Front, Texture Close-up
                 img_list.extend([
                     f"/{style_prefix}-{suffix}-front.png",
                     f"/{style_prefix}-{suffix}-back.png",
+                    f"/branded-{style_prefix}-{suffix}-front.png",
                     f"/{style_prefix}-{suffix}-close.png"
                 ])
             return img_list
 
         print("Seeding clothing items...")
         
-        # 1. Plain Regular T-Shirts: 2 GSMs (160, 180) = 2 items
+        # 1. Regular T-Shirts: 2 GSMs (160, 180) = 2 items
         for gsm in [160, 180]:
-            name = f"Plain Regular T-Shirt - {gsm} GSM"
+            name = f"Regular T-Shirt - {gsm} GSM"
             description = f"A premium {gsm} GSM combed cotton single jersey regular-fit t-shirt. Tailored for high-end wholesale and custom coordinates, bio-washed for maximum softness."
             
             images = get_all_images("regular")
@@ -122,9 +123,9 @@ def seed_db():
             )
             db.add(item)
                 
-        # 2. Plain Oversized T-Shirts: 2 GSMs (220, 240) = 2 items
+        # 2. Oversized T-Shirts: 2 GSMs (220, 240) = 2 items
         for gsm in [220, 240]:
-            name = f"Plain Oversized T-Shirt - {gsm} GSM"
+            name = f"Oversized T-Shirt - {gsm} GSM"
             description = f"A heavy {gsm} GSM combed cotton loop knit oversized t-shirt. Features relaxed drop-shoulder tailoring and substantial drape with a standard softener finish."
             
             images = get_all_images("oversized")

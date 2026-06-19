@@ -17,6 +17,18 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
   const scrollToSection = (id: string) => {
     setIsOpen(false);
     const element = document.getElementById(id);
@@ -32,11 +44,17 @@ export const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 glass-nav ${isScrolled ? 'py-4 shadow-sm' : 'py-6'}`}>
-      <div className="editorial-container mx-auto flex items-center justify-between">
+    <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+      isOpen
+        ? 'bg-brand-beige border-b border-brand-concrete/30 h-16 md:h-auto flex items-center md:block'
+        : isScrolled
+          ? 'bg-brand-beige shadow-sm border-b border-brand-concrete/20 h-16 md:h-auto py-0 md:py-4 flex items-center md:block'
+          : 'bg-brand-beige md:bg-brand-beige/90 md:backdrop-blur-md border-b border-brand-concrete/10 h-16 md:h-auto py-0 md:py-6 flex items-center md:block'
+    }`}>
+      <div className="editorial-container mx-auto flex items-center justify-between w-full">
         {/* Brand Logo */}
-        <Link to="/" className="text-xl md:text-2xl font-display font-bold tracking-[0.25em] text-brand-charcoal hover:opacity-75 transition-opacity duration-300">
-          HUESCOUT
+        <Link to="/" className="hover:opacity-75 transition-opacity duration-300 flex items-center">
+          <img src="/Asset 1.svg" alt="HUESCOUT Logo" className="h-6 md:h-7 w-auto object-contain" />
         </Link>
 
         {/* Desktop Links */}
@@ -105,7 +123,7 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Drawer */}
       {isOpen && (
-        <div className="fixed inset-0 top-[70px] bg-brand-beige z-40 flex flex-col justify-between px-6 py-12 transition-all duration-300 md:hidden animate-fade-in">
+        <div className="fixed inset-0 top-[64px] bg-brand-beige z-40 flex flex-col justify-between px-6 py-12 transition-all duration-300 md:hidden animate-fade-in border-t border-brand-concrete/10">
           <div className="flex flex-col space-y-8 text-sm uppercase tracking-[0.25em] font-medium text-brand-charcoal">
             <Link to="/collections" onClick={() => setIsOpen(false)} className="text-left py-2 border-b border-brand-charcoal/5 uppercase hover:opacity-75">
               Collections

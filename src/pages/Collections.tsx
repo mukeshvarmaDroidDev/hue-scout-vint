@@ -113,7 +113,7 @@ export const Collections: React.FC = () => {
                   <div className="flex flex-col space-y-2 text-xs tracking-wider">
                     <button
                       onClick={() => setSelectedCollection('all')}
-                      className={`text-left hover:text-brand-charcoal cursor-pointer transition-colors ${selectedCollection === 'all' ? 'text-brand-charcoal font-bold' : 'text-brand-charcoal/50'}`}
+                      className={`text-left px-3 py-2 border cursor-pointer transition-all duration-300 ${selectedCollection === 'all' ? 'border-brand-charcoal bg-brand-charcoal text-brand-beige' : 'border-brand-concrete hover:border-brand-charcoal/50 text-brand-charcoal/70 bg-white'}`}
                     >
                       All Collections ({allItems.length})
                     </button>
@@ -123,7 +123,7 @@ export const Collections: React.FC = () => {
                         <button
                           key={col.id}
                           onClick={() => setSelectedCollection(col.slug)}
-                          className={`text-left hover:text-brand-charcoal cursor-pointer transition-colors ${selectedCollection === col.slug ? 'text-brand-charcoal font-bold' : 'text-brand-charcoal/50'}`}
+                          className={`text-left px-3 py-2 border cursor-pointer transition-all duration-300 ${selectedCollection === col.slug ? 'border-brand-charcoal bg-brand-charcoal text-brand-beige' : 'border-brand-concrete hover:border-brand-charcoal/50 text-brand-charcoal/70 bg-white'}`}
                         >
                           {col.title} ({count})
                         </button>
@@ -138,31 +138,31 @@ export const Collections: React.FC = () => {
                   <div className="flex flex-col space-y-2 text-xs tracking-wider">
                     <button
                       onClick={() => setGsmFilter('all')}
-                      className={`text-left hover:text-brand-charcoal cursor-pointer transition-colors ${gsmFilter === 'all' ? 'text-brand-charcoal font-bold' : 'text-brand-charcoal/50'}`}
+                      className={`text-left px-3 py-2 border cursor-pointer transition-all duration-300 ${gsmFilter === 'all' ? 'border-brand-charcoal bg-brand-charcoal text-brand-beige' : 'border-brand-concrete hover:border-brand-charcoal/50 text-brand-charcoal/70 bg-white'}`}
                     >
                       All Weights
                     </button>
                     <button
                       onClick={() => setGsmFilter('light')}
-                      className={`text-left hover:text-brand-charcoal cursor-pointer transition-colors ${gsmFilter === 'light' ? 'text-brand-charcoal font-bold' : 'text-brand-charcoal/50'}`}
+                      className={`text-left px-3 py-2 border cursor-pointer transition-all duration-300 ${gsmFilter === 'light' ? 'border-brand-charcoal bg-brand-charcoal text-brand-beige' : 'border-brand-concrete hover:border-brand-charcoal/50 text-brand-charcoal/70 bg-white'}`}
                     >
                       Lightweight (160 GSM)
                     </button>
                     <button
                       onClick={() => setGsmFilter('medium')}
-                      className={`text-left hover:text-brand-charcoal cursor-pointer transition-colors ${gsmFilter === 'medium' ? 'text-brand-charcoal font-bold' : 'text-brand-charcoal/50'}`}
+                      className={`text-left px-3 py-2 border cursor-pointer transition-all duration-300 ${gsmFilter === 'medium' ? 'border-brand-charcoal bg-brand-charcoal text-brand-beige' : 'border-brand-concrete hover:border-brand-charcoal/50 text-brand-charcoal/70 bg-white'}`}
                     >
                       Mid-weight (180 GSM)
                     </button>
                     <button
                       onClick={() => setGsmFilter('heavy220')}
-                      className={`text-left hover:text-brand-charcoal cursor-pointer transition-colors ${gsmFilter === 'heavy220' ? 'text-brand-charcoal font-bold' : 'text-brand-charcoal/50'}`}
+                      className={`text-left px-3 py-2 border cursor-pointer transition-all duration-300 ${gsmFilter === 'heavy220' ? 'border-brand-charcoal bg-brand-charcoal text-brand-beige' : 'border-brand-concrete hover:border-brand-charcoal/50 text-brand-charcoal/70 bg-white'}`}
                     >
                       Heavyweight (220 GSM)
                     </button>
                     <button
                       onClick={() => setGsmFilter('heavy240')}
-                      className={`text-left hover:text-brand-charcoal cursor-pointer transition-colors ${gsmFilter === 'heavy240' ? 'text-brand-charcoal font-bold' : 'text-brand-charcoal/50'}`}
+                      className={`text-left px-3 py-2 border cursor-pointer transition-all duration-300 ${gsmFilter === 'heavy240' ? 'border-brand-charcoal bg-brand-charcoal text-brand-beige' : 'border-brand-concrete hover:border-brand-charcoal/50 text-brand-charcoal/70 bg-white'}`}
                     >
                       Heavyweight (240 GSM)
                     </button>

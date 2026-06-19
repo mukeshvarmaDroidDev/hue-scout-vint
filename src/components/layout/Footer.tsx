@@ -5,12 +5,12 @@ export const Footer: React.FC = () => {
   return (
     <footer className="bg-brand-obsidian text-brand-beige py-20 mt-20 border-t border-brand-charcoal/10">
       <div className="editorial-container mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
-        
+
         {/* About Column */}
         <div className="space-y-4 md:col-span-2">
-          <h4 className="font-display font-semibold text-lg tracking-[0.2em] uppercase">HUESCOUT</h4>
+          <img src="/Asset 2.svg" alt="HUESCOUT Logo" className="h-6 w-auto object-contain" />
           <p className="text-xs text-brand-beige/60 tracking-wider leading-relaxed max-w-sm">
-            Partnering with premium global retail groups, luxury boutique labels, and hospitality brands to design, manufacture, and ship tailored garments. Operating state-of-the-art, vertically integrated facilities in compliance with international environmental standards.
+            A premium digital showroom displaying bulk linen collections, dense cottons, and custom cashmere knitwear for high-end boutique houses and verified B2B retail groups.
           </p>
         </div>
 
@@ -41,7 +41,7 @@ export const Footer: React.FC = () => {
 
       <div className="editorial-container mx-auto mt-16 pt-8 border-t border-brand-beige/5 flex flex-col md:flex-row items-center justify-between text-[10px] text-brand-beige/45 tracking-[0.2em] uppercase space-y-4 md:space-y-0">
         <div>
-          © 2026 Atelier & Co. All rights reserved.
+          © 2026 HUESCOUT. All rights reserved.
         </div>
         <div className="flex space-x-6">
           <a href="#privacy" className="hover:text-brand-beige transition-colors">Privacy Policy</a>

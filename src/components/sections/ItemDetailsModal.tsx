@@ -54,9 +54,9 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({ item, onClos
   const [added, setAdded] = useState(false);
 
   const colorIdx = item.available_colors.findIndex(c => c.hex === selectedColor.hex);
-  const colorImages = (colorIdx > -1 && item.images.length >= (colorIdx + 1) * 3)
-    ? item.images.slice(colorIdx * 3, (colorIdx + 1) * 3)
-    : item.images.slice(0, 3);
+  const colorImages = (colorIdx > -1 && item.images.length >= (colorIdx + 1) * 4)
+    ? item.images.slice(colorIdx * 4, (colorIdx + 1) * 4)
+    : item.images.slice(0, 4);
 
   const handleAddToInquiry = () => {
     addToInquiry(item, selectedColor, quantity);
@@ -135,7 +135,7 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({ item, onClos
 
                 {/* Active View Label */}
                 <div className="text-[10px] uppercase tracking-[0.2em] text-brand-charcoal/60 text-center font-bold">
-                  {activeImgIdx === 0 ? "Front View" : activeImgIdx === 1 ? "Back View" : "Texture Close-up"}
+                  {activeImgIdx === 0 ? "Front View" : activeImgIdx === 1 ? "Back View" : activeImgIdx === 2 ? "Branded View" : "Knit Structure"}
                 </div>
 
                 {/* Thumbnails Row */}

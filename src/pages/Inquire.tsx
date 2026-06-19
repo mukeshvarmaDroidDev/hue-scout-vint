@@ -59,7 +59,7 @@ export const Inquire: React.FC = () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err: any) {
       setError(
-        err.response?.data?.detail || 
+        err.response?.data?.detail ||
         'Failed to submit inquiry request. Please verify inputs and try again.'
       );
     } finally {
@@ -73,10 +73,10 @@ export const Inquire: React.FC = () => {
 
       <main className="flex-1 py-16">
         <div className="editorial-container mx-auto max-w-6xl space-y-12">
-          
+
           {/* Back Trigger */}
-          <button 
-            onClick={() => navigate(-1)} 
+          <button
+            onClick={() => navigate(-1)}
             className="flex items-center gap-2 text-[10px] uppercase tracking-[0.25em] font-semibold text-brand-charcoal/50 hover:text-brand-charcoal transition-colors cursor-pointer"
           >
             <ArrowLeft size={12} /> Back to showroom
@@ -92,14 +92,14 @@ export const Inquire: React.FC = () => {
               </p>
               <div className="pt-4 flex flex-col gap-3">
                 {user ? (
-                  <button 
+                  <button
                     onClick={() => navigate('/dashboard')}
                     className="text-xs uppercase tracking-[0.2em] font-semibold bg-brand-charcoal text-brand-beige py-3.5 hover:bg-brand-obsidian transition-colors cursor-pointer"
                   >
                     Go to Portal Dashboard
                   </button>
                 ) : (
-                  <button 
+                  <button
                     onClick={() => navigate('/')}
                     className="text-xs uppercase tracking-[0.2em] font-semibold bg-brand-charcoal text-brand-beige py-3.5 hover:bg-brand-obsidian transition-colors cursor-pointer"
                   >
@@ -111,11 +111,10 @@ export const Inquire: React.FC = () => {
           ) : (
             /* Multi-part inquiry structure */
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-              
               {/* Form Input Side */}
               <div className="lg:col-span-7 space-y-8">
                 <div className="space-y-2">
-                  <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-charcoal/45">Atelier Sourcing Request</span>
+                  <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-charcoal/45">Huescout Sourcing Request</span>
                   <h1 className="font-serif text-3xl font-light text-brand-charcoal">Request Production Specs</h1>
                   <p className="text-xs text-brand-charcoal/50 tracking-wider">
                     Submit your customized fabric drapes and estimated runs directly to our loom network.
@@ -131,24 +130,24 @@ export const Inquire: React.FC = () => {
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="space-y-1">
                     <label className="text-[9px] uppercase tracking-widest text-brand-charcoal/50 block font-bold">Company Name</label>
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       required
                       value={companyName}
                       onChange={(e) => setCompanyName(e.target.value)}
-                      placeholder="e.g. Atelier & Co."
+                      placeholder="e.g. Huescout"
                       className="w-full bg-white border border-brand-concrete px-4 py-3 text-xs tracking-wider focus:border-brand-charcoal focus:outline-none"
                     />
                   </div>
 
                   <div className="space-y-1">
                     <label className="text-[9px] uppercase tracking-widest text-brand-charcoal/50 block font-bold">Corporate Email Address</label>
-                    <input 
-                      type="email" 
+                    <input
+                      type="email"
                       required
                       value={contactEmail}
                       onChange={(e) => setContactEmail(e.target.value)}
-                      placeholder="e.g. buyer@atelier.com"
+                      placeholder="e.g. buyer@huescout.com"
                       className="w-full bg-white border border-brand-concrete px-4 py-3 text-xs tracking-wider focus:border-brand-charcoal focus:outline-none"
                     />
                   </div>
@@ -168,7 +167,7 @@ export const Inquire: React.FC = () => {
 
                   <div className="space-y-1">
                     <label className="text-[9px] uppercase tracking-widest text-brand-charcoal/50 block font-bold">Custom Requirements / Fabric specifications</label>
-                    <textarea 
+                    <textarea
                       rows={6}
                       value={messageText}
                       onChange={(e) => setMessageText(e.target.value)}
@@ -210,7 +209,7 @@ export const Inquire: React.FC = () => {
                             <div>
                               <div className="flex justify-between items-start">
                                 <span className="font-semibold text-brand-charcoal">{item.name}</span>
-                                <button 
+                                <button
                                   onClick={() => removeFromInquiry(item.id, item.selectedColor.hex)}
                                   className="text-brand-charcoal/40 hover:text-red-700 cursor-pointer"
                                   title="Remove item"

@@ -17,8 +17,8 @@ export const BrandStory: React.FC = () => {
             <div className="lg:col-span-5 space-y-4">
               <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-charcoal/40">The Etymology</span>
               <h1 className="font-serif text-4xl md:text-5xl font-light text-brand-charcoal leading-tight">
-                HUE <br />
-                <span className="font-sans font-bold text-lg md:text-xl tracking-[0.25em] text-brand-charcoal/30 block mt-2">&amp; SCOUT</span>
+                <img src="/Asset 3.svg" alt="HUESCOUT Logo Mark" className="h-12 w-auto mb-4 object-contain" />
+                HUE &amp; SCOUT
               </h1>
               <div className="w-12 h-[1px] bg-brand-charcoal/30 pt-1" />
             </div>

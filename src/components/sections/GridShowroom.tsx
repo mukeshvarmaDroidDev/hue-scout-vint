@@ -90,17 +90,18 @@ export const GridShowroom: React.FC = () => {
           </div>
           
           {/* Collection Tab Links */}
-          <div className="flex flex-wrap gap-8 text-[11px] uppercase tracking-[0.2em] font-semibold text-brand-charcoal">
-            {collections.map(col => (
+          <div className="flex flex-wrap border border-brand-charcoal/10 rounded-sm overflow-hidden text-[10px] uppercase tracking-[0.2em] font-semibold text-brand-charcoal">
+            {collections.map((col) => (
               <button
                 key={col.id}
                 onClick={() => setActiveCollection(col)}
-                className={`pb-2 relative cursor-pointer transition-colors ${activeCollection?.id === col.id ? 'text-brand-charcoal' : 'text-brand-charcoal/40 hover:text-brand-charcoal/70'}`}
+                className={`px-5 py-3 cursor-pointer transition-all duration-300 border-r border-brand-charcoal/10 last:border-r-0 ${
+                  activeCollection?.id === col.id 
+                    ? 'bg-brand-charcoal text-brand-beige' 
+                    : 'bg-white hover:bg-brand-cream text-brand-charcoal/60'
+                }`}
               >
                 {col.title}
-                {activeCollection?.id === col.id && (
-                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-brand-charcoal animate-fade-in" />
-                )}
               </button>
             ))}
           </div>
