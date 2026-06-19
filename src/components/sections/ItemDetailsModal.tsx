@@ -53,13 +53,26 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({ item, onClos
   const [quantity, setQuantity] = useState(100); // B2B MOQ defaults to 100
   const [added, setAdded] = useState(false);
 
+  // Available fabric weights based on item type
+  const getAvailableWeights = (itemName: string) => {
+    if (itemName.toLowerCase().includes("oversized")) return [220, 240];
+    if (itemName.toLowerCase().includes("regular")) return [160, 180];
+    return [220]; // Default/Polo
+  };
+  const availableWeights = getAvailableWeights(item.name);
+  const [selectedGsm, setSelectedGsm] = useState<number>(availableWeights[0]);
+
+  // Available garment sizes
+  const sizes = ['S', 'M', 'L', 'XL', 'XXL'];
+  const [selectedSize, setSelectedSize] = useState<string>('M');
+
   const colorIdx = item.available_colors.findIndex(c => c.hex === selectedColor.hex);
   const colorImages = (colorIdx > -1 && item.images.length >= (colorIdx + 1) * 4)
     ? item.images.slice(colorIdx * 4, (colorIdx + 1) * 4)
     : item.images.slice(0, 4);
 
   const handleAddToInquiry = () => {
-    addToInquiry(item, selectedColor, quantity);
+    addToInquiry(item, selectedColor, quantity, selectedGsm, selectedSize);
     setAdded(true);
     setTimeout(() => {
       setAdded(false);
@@ -172,7 +185,7 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({ item, onClos
                   </div>
                   <div>
                     <span className="block text-[10px] text-brand-charcoal/40 uppercase tracking-widest font-bold mb-1">Fabric Weight</span>
-                    <span className="font-semibold text-brand-charcoal">{item.gsm_weight} GSM</span>
+                    <span className="font-semibold text-brand-charcoal">{selectedGsm} GSM</span>
                   </div>
                   {item.knit_structure && (
                     <div>
@@ -203,6 +216,38 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({ item, onClos
                       >
                         <span className="w-3.5 h-3.5 rounded-full border border-brand-charcoal/10" style={{ backgroundColor: color.hex }} />
                         <span>{color.name}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Fabric Weight Selector */}
+                <div className="space-y-3">
+                  <span className="block text-[10px] text-brand-charcoal/45 uppercase tracking-widest font-bold">Select Fabric Weight</span>
+                  <div className="flex flex-wrap gap-2.5">
+                    {availableWeights.map((weight) => (
+                      <button
+                        key={weight}
+                        onClick={() => setSelectedGsm(weight)}
+                        className={`px-4 py-1.5 border text-xs tracking-wider cursor-pointer transition-all ${selectedGsm === weight ? 'border-brand-charcoal bg-brand-charcoal text-brand-beige' : 'border-brand-concrete hover:border-brand-charcoal/50 text-brand-charcoal bg-white'}`}
+                      >
+                        {weight} GSM
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Garment Size Selector */}
+                <div className="space-y-3">
+                  <span className="block text-[10px] text-brand-charcoal/45 uppercase tracking-widest font-bold">Select Size</span>
+                  <div className="flex flex-wrap gap-2.5">
+                    {sizes.map((sz) => (
+                      <button
+                        key={sz}
+                        onClick={() => setSelectedSize(sz)}
+                        className={`w-12 py-1.5 border text-xs tracking-wider font-semibold cursor-pointer transition-all text-center ${selectedSize === sz ? 'border-brand-charcoal bg-brand-charcoal text-brand-beige' : 'border-brand-concrete hover:border-brand-charcoal/50 text-brand-charcoal bg-white'}`}
+                      >
+                        {sz}
                       </button>
                     ))}
                   </div>

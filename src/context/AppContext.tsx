@@ -9,6 +9,7 @@ export interface InquiredItem {
   selectedColor: { name: string; hex: string };
   quantity: number;
   image: string;
+  size?: string;
 }
 
 export interface User {
@@ -26,8 +27,8 @@ interface AppContextType {
   login: (token: string) => void;
   logout: () => void;
   inquiryItems: InquiredItem[];
-  addToInquiry: (item: any, color: { name: string; hex: string }, quantity: number) => void;
-  removeFromInquiry: (itemId: number, colorHex: string) => void;
+  addToInquiry: (item: any, color: { name: string; hex: string }, quantity: number, gsmWeight?: number, size?: string) => void;
+  removeFromInquiry: (itemId: number, colorHex: string, gsm?: number, size?: string) => void;
   clearInquiry: () => void;
   loadingUser: boolean;
 }
@@ -86,11 +87,17 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setUser(null);
   };
 
-  const addToInquiry = (item: any, color: { name: string; hex: string }, quantity: number) => {
+  const addToInquiry = (item: any, color: { name: string; hex: string }, quantity: number, gsmWeight?: number, size?: string) => {
     setInquiryItems(prev => {
-      // Check if item with exact same ID and color exists
+      const finalGsm = gsmWeight !== undefined ? gsmWeight : item.gsm_weight;
+      const finalSize = size || 'M';
+
+      // Check if item with exact same ID, color, GSM, and Size exists
       const existingIdx = prev.findIndex(
-        i => i.id === item.id && i.selectedColor.hex === color.hex
+        i => i.id === item.id && 
+             i.selectedColor.hex === color.hex && 
+             i.gsm_weight === finalGsm &&
+             i.size === finalSize
       );
       if (existingIdx > -1) {
         const updated = [...prev];
@@ -106,16 +113,23 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         id: item.id,
         name: item.name,
         fabric_composition: item.fabric_composition,
-        gsm_weight: item.gsm_weight,
+        gsm_weight: finalGsm,
         selectedColor: color,
         quantity,
-        image
+        image,
+        size: finalSize
       }];
     });
   };
 
-  const removeFromInquiry = (itemId: number, colorHex: string) => {
-    setInquiryItems(prev => prev.filter(i => !(i.id === itemId && i.selectedColor.hex === colorHex)));
+  const removeFromInquiry = (itemId: number, colorHex: string, gsm?: number, size?: string) => {
+    setInquiryItems(prev => prev.filter(i => {
+      const matchId = i.id === itemId;
+      const matchColor = i.selectedColor.hex === colorHex;
+      const matchGsm = gsm !== undefined ? i.gsm_weight === gsm : true;
+      const matchSize = size !== undefined ? i.size === size : true;
+      return !(matchId && matchColor && matchGsm && matchSize);
+    }));
   };
 
   const clearInquiry = () => {

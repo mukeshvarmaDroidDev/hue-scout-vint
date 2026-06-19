@@ -37,6 +37,8 @@ export const Inquire: React.FC = () => {
       item_id: item.id,
       name: item.name,
       color: item.selectedColor.name,
+      gsm_weight: item.gsm_weight,
+      size: item.size || 'M',
       quantity: item.quantity
     }));
 
@@ -210,15 +212,15 @@ export const Inquire: React.FC = () => {
                               <div className="flex justify-between items-start">
                                 <span className="font-semibold text-brand-charcoal">{item.name}</span>
                                 <button
-                                  onClick={() => removeFromInquiry(item.id, item.selectedColor.hex)}
+                                  onClick={() => removeFromInquiry(item.id, item.selectedColor.hex, item.gsm_weight, item.size)}
                                   className="text-brand-charcoal/40 hover:text-red-700 cursor-pointer"
                                   title="Remove item"
                                 >
                                   <Trash2 size={12} />
                                 </button>
                               </div>
-                              <span className="block text-[10px] text-brand-charcoal/50">{item.fabric_composition}</span>
-                              <span className="block text-[10px] text-brand-charcoal/50 font-bold">Color: {item.selectedColor.name}</span>
+                              <span className="block text-[10px] text-brand-charcoal/50">{item.fabric_composition} &bull; {item.gsm_weight} GSM</span>
+                              <span className="block text-[10px] text-brand-charcoal/50 font-bold">Color: {item.selectedColor.name} &bull; Size: {item.size || 'M'}</span>
                             </div>
                             <span className="block text-[10px] text-brand-charcoal/60 mt-1 font-bold">
                               Run Volume: {item.quantity} Units
