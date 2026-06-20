@@ -13,6 +13,9 @@ export const Inquire: React.FC = () => {
   // Form State
   const [companyName, setCompanyName] = useState('');
   const [contactEmail, setContactEmail] = useState('');
+  const [countryCode, setCountryCode] = useState('+1');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [consent, setConsent] = useState(false);
   const [estimatedVolume, setEstimatedVolume] = useState('100-500');
   const [messageText, setMessageText] = useState('');
   const [submitted, setSubmitted] = useState(false);
@@ -52,6 +55,9 @@ export const Inquire: React.FC = () => {
         company_name: companyName,
         contact_email: contactEmail,
         estimated_volume: estimatedVolume,
+        phone_number: phoneNumber,
+        country_code: countryCode,
+        consent: consent,
         message_text: messageText,
         items_inquired: itemsPayload.length > 0 ? itemsPayload : null
       }, { headers });
@@ -154,6 +160,39 @@ export const Inquire: React.FC = () => {
                     />
                   </div>
 
+                  <div className="grid grid-cols-4 gap-4">
+                    <div className="col-span-1 space-y-1">
+                      <label className="text-[9px] uppercase tracking-widest text-brand-charcoal/50 block font-bold">Country Code</label>
+                      <select
+                        value={countryCode}
+                        onChange={(e) => setCountryCode(e.target.value)}
+                        className="w-full bg-white border border-brand-concrete px-3 py-3 text-xs tracking-wider focus:border-brand-charcoal focus:outline-none"
+                      >
+                        <option value="+1">+1 (US/CA)</option>
+                        <option value="+91">+91 (IN)</option>
+                        <option value="+44">+44 (UK)</option>
+                        <option value="+49">+49 (DE)</option>
+                        <option value="+33">+33 (FR)</option>
+                        <option value="+61">+61 (AU)</option>
+                        <option value="+81">+81 (JP)</option>
+                        <option value="+971">+971 (UAE)</option>
+                        <option value="+65">+65 (SG)</option>
+                      </select>
+                    </div>
+
+                    <div className="col-span-3 space-y-1">
+                      <label className="text-[9px] uppercase tracking-widest text-brand-charcoal/50 block font-bold">Phone Number</label>
+                      <input
+                        type="tel"
+                        required
+                        value={phoneNumber}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
+                        placeholder="e.g. 555-0199"
+                        className="w-full bg-white border border-brand-concrete px-4 py-3 text-xs tracking-wider focus:border-brand-charcoal focus:outline-none"
+                      />
+                    </div>
+                  </div>
+
                   <div className="space-y-1">
                     <label className="text-[9px] uppercase tracking-widest text-brand-charcoal/50 block font-bold">Estimated Order Volume Bracket</label>
                     <select
@@ -176,6 +215,20 @@ export const Inquire: React.FC = () => {
                       placeholder="State any adjustments to lengths, custom coloring codes, label weaving, hanger loops, or packaging requirements."
                       className="w-full bg-white border border-brand-concrete px-4 py-3 text-xs tracking-wider focus:border-brand-charcoal focus:outline-none resize-none leading-relaxed"
                     />
+                  </div>
+
+                  <div className="flex items-start gap-3 pt-2">
+                    <input
+                      id="communication-consent"
+                      type="checkbox"
+                      required
+                      checked={consent}
+                      onChange={(e) => setConsent(e.target.checked)}
+                      className="mt-1 h-3.5 w-3.5 border border-brand-concrete rounded-sm focus:ring-brand-charcoal accent-brand-charcoal cursor-pointer"
+                    />
+                    <label htmlFor="communication-consent" className="text-[10px] text-brand-charcoal/65 tracking-wider leading-relaxed cursor-pointer select-none">
+                      I consent to receive communication updates, custom wholesale price sheets, and logistics reports via email, SMS, or phone calls from HUESCOUT sourcing managers.
+                    </label>
                   </div>
 
                   <button

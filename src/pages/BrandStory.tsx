@@ -11,7 +11,7 @@ export const BrandStory: React.FC = () => {
 
       <main className="flex-1 py-20">
         <div className="editorial-container mx-auto max-w-[1440px] space-y-28">
-          
+
           {/* Section 1: Intro Header & Meaning */}
           <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             <div className="lg:col-span-5 space-y-4">
@@ -28,12 +28,12 @@ export const BrandStory: React.FC = () => {
                 "We define color as an architectural element; we define sourcing as an act of absolute standards."
               </p>
               <p className="text-xs text-brand-charcoal/70 tracking-wider leading-relaxed">
-                The name <strong>HUESCOUT</strong> is born from two distinct pursuits. 
+                The name <strong>HUESCOUT</strong> is born from two distinct pursuits.
                 <span className="block mt-4">
-                  <strong>HUE</strong> represents the spectrum of color—curated, refined, and extracted using natural vat-dyeing techniques to capture raw concrete grays, off-whites, and deep obsidian charcoal. 
+                  <strong>HUE</strong> represents the spectrum of color—curated, refined, and extracted using natural vat-dyeing techniques to capture raw concrete grays, off-whites, and deep obsidian charcoal.
                 </span>
                 <span className="block mt-2">
-                  <strong>SCOUT</strong> is our promise to search, source, and secure only the highest-grade raw materials—Belgian flax flax, GOTS-certified Supima cotton, and extrafine merino cashmere blends.
+                  <strong>SCOUT</strong> is our promise to search, source, and secure only the highest-grade raw materials, high production quality cotton, and extrafine merino cashmere blends.
                 </span>
               </p>
             </div>
@@ -43,25 +43,25 @@ export const BrandStory: React.FC = () => {
           <section className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
             {/* Large Image Left */}
             <div className="md:col-span-7 aspect-[4/3] bg-brand-cream overflow-hidden border border-brand-concrete/30">
-              <img 
-                src="/cotton-sourcing-detail.png" 
-                alt="Sourcing Raw Materials" 
+              <img
+                src="/cotton-sourcing-detail.png"
+                alt="Sourcing Raw Materials"
                 className="w-full h-full object-cover image-zoom-hover"
                 loading="lazy"
               />
             </div>
-            
+
             {/* Text and Small Image Right */}
             <div className="md:col-span-5 space-y-6 md:pl-6">
               <span className="text-[9px] uppercase tracking-[0.25em] font-bold text-brand-charcoal/45">The Search (Scouting)</span>
               <h3 className="font-serif text-2xl font-light text-brand-charcoal">The Pursuit of Raw Textures</h3>
               <p className="text-xs text-brand-charcoal/65 leading-relaxed tracking-wider">
-                We search the globe for mills that preserve heritage techniques. Our sourcing team visits flax farms in northern Europe and organic cotton fields in southern India, selecting fibers based on length, strength, and environmental footprint.
+                We search the globe for mills that preserve heritage techniques. Our sourcing team visits flax farms in allover india, selecting fibers based on length, strength, and environmental footprint.
               </p>
               <div className="aspect-[3/4] w-2/3 bg-brand-cream overflow-hidden border border-brand-concrete/30">
-                <img 
-                  src="/draped-cotton-texture.png" 
-                  alt="Draped Cotton Fabric" 
+                <img
+                  src="/draped-cotton-texture.png"
+                  alt="Draped Cotton Fabric"
                   className="w-full h-full object-cover image-zoom-hover"
                   loading="lazy"
                 />
@@ -111,8 +111,8 @@ export const BrandStory: React.FC = () => {
               Ready to construct custom runs or source our stock collection fabrics? Fill out our B2B inquiry sheet, and a showroom manager will verify availability.
             </p>
             <div className="pt-2">
-              <Link 
-                to="/inquire" 
+              <Link
+                to="/inquire"
                 className="text-xs uppercase tracking-[0.25em] font-semibold text-brand-beige bg-brand-charcoal px-8 py-4 hover:bg-brand-obsidian transition-colors inline-block"
               >
                 Inquire For Production <ArrowRight size={12} className="inline-block ml-1" />

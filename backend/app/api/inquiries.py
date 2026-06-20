@@ -37,6 +37,9 @@ def create_inquiry(
         company_name=inquiry_in.company_name,
         contact_email=inquiry_in.contact_email,
         estimated_volume=inquiry_in.estimated_volume,
+        phone_number=inquiry_in.phone_number,
+        country_code=inquiry_in.country_code,
+        consent=inquiry_in.consent,
         message_text=inquiry_in.message_text,
         items_inquired=inquiry_in.items_inquired,
         status="pending"

@@ -35,26 +35,21 @@ export const Navbar: React.FC = () => {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     } else {
-      navigate('/');
-      setTimeout(() => {
-        const el = document.getElementById(id);
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
+      navigate(`/#${id}`);
     }
   };
 
   return (
-    <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-      isOpen
-        ? 'bg-brand-beige border-b border-brand-concrete/30 h-16 md:h-auto flex items-center md:block'
-        : isScrolled
-          ? 'bg-brand-beige shadow-sm border-b border-brand-concrete/20 h-16 md:h-auto py-0 md:py-4 flex items-center md:block'
-          : 'bg-brand-beige md:bg-brand-beige/90 md:backdrop-blur-md border-b border-brand-concrete/10 h-16 md:h-auto py-0 md:py-6 flex items-center md:block'
-    }`}>
+    <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isOpen
+      ? 'bg-brand-beige border-b border-brand-concrete/30 h-16 md:h-auto flex items-center md:block'
+      : isScrolled
+        ? 'bg-brand-beige shadow-sm border-b border-brand-concrete/20 h-16 md:h-auto py-0 md:py-4 flex items-center md:block'
+        : 'bg-brand-beige md:bg-brand-beige/90 md:backdrop-blur-md border-b border-brand-concrete/10 h-16 md:h-auto py-0 md:py-6 flex items-center md:block'
+      }`}>
       <div className="editorial-container mx-auto flex items-center justify-between w-full">
         {/* Brand Logo */}
         <Link to="/" className="hover:opacity-75 transition-opacity duration-300 flex items-center">
-          <img src="/Asset 1.svg" alt="HUESCOUT Logo" className="h-6 md:h-7 w-auto object-contain" />
+          <img src="/Asset 1.svg" alt="HUESCOUT Logo" className="h-10 md:h-14 w-auto object-contain" />
         </Link>
 
         {/* Desktop Links */}
@@ -87,7 +82,7 @@ export const Navbar: React.FC = () => {
 
           {/* Client Portal Link */}
           {isAuthenticated ? (
-            <div className="flex items-center space-x-4 text-xs uppercase tracking-[0.2em] font-medium text-brand-charcoal transition-colors duration-300">
+            <div className="flex items-center space-x-4 text-sm uppercase tracking-[0.2em] font-medium text-brand-charcoal transition-colors duration-300">
               <Link to="/dashboard" className="hover:opacity-75 transition-opacity flex items-center gap-1">
                 <UserIcon size={14} />
                 Portal
@@ -98,7 +93,7 @@ export const Navbar: React.FC = () => {
               </button>
             </div>
           ) : (
-            <Link to="/auth" className="text-xs uppercase tracking-[0.2em] font-semibold border-b pb-0.5 transition-colors duration-300 text-brand-charcoal border-brand-charcoal/30 hover:border-brand-charcoal">
+            <Link to="/auth" className="text-sm uppercase tracking-[0.2em] font-semibold border-b pb-0.5 transition-colors duration-300 text-brand-charcoal border-brand-charcoal/30 hover:border-brand-charcoal">
               B2B Portal
             </Link>
           )}
@@ -137,7 +132,7 @@ export const Navbar: React.FC = () => {
             <Link to="/inquire" onClick={() => setIsOpen(false)} className="text-left py-2 border-b border-brand-charcoal/5 uppercase hover:opacity-75">
               Inquire
             </Link>
-            
+
             {isAuthenticated ? (
               <>
                 <Link to="/dashboard" onClick={() => setIsOpen(false)} className="py-2 border-b border-brand-charcoal/5 uppercase hover:opacity-75">

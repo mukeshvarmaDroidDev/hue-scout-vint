@@ -50,7 +50,7 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({ item, onClos
   const { addToInquiry } = useApp();
   const [activeImgIdx, setActiveImgIdx] = useState(0);
   const [selectedColor, setSelectedColor] = useState<ColorSwatch>(item.available_colors[0]);
-  const [quantity, setQuantity] = useState(100); // B2B MOQ defaults to 100
+  const [quantityInput, setQuantityInput] = useState<string>('100');
   const [added, setAdded] = useState(false);
 
   // Available fabric weights based on item type
@@ -72,8 +72,10 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({ item, onClos
     : item.images.slice(0, 4);
 
   const handleAddToInquiry = () => {
-    addToInquiry(item, selectedColor, quantity, selectedGsm, selectedSize);
+    const finalQuantity = Math.max(100, parseInt(quantityInput) || 100);
+    addToInquiry(item, selectedColor, finalQuantity, selectedGsm, selectedSize);
     setAdded(true);
+    setQuantityInput(finalQuantity.toString());
     setTimeout(() => {
       setAdded(false);
       onClose();
@@ -264,8 +266,16 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({ item, onClos
                       type="number" 
                       min={100}
                       step={50}
-                      value={quantity}
-                      onChange={(e) => setQuantity(Math.max(100, parseInt(e.target.value) || 100))}
+                      value={quantityInput}
+                      onChange={(e) => setQuantityInput(e.target.value)}
+                      onBlur={() => {
+                        const parsed = parseInt(quantityInput);
+                        if (isNaN(parsed) || parsed < 100) {
+                          setQuantityInput('100');
+                        } else {
+                          setQuantityInput(parsed.toString());
+                        }
+                      }}
                       className="w-32 bg-white border border-brand-concrete px-4 py-2 text-xs tracking-widest font-medium focus:border-brand-charcoal focus:outline-none"
                     />
                     <span className="text-xs text-brand-charcoal/50 tracking-wider">Units</span>

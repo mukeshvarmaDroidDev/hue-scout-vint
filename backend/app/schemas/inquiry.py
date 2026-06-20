@@ -6,6 +6,9 @@ class InquiryCreate(BaseModel):
     company_name: str = Field(..., min_length=2, max_length=255, description="Client company name")
     contact_email: EmailStr = Field(..., description="Corporate communication email")
     estimated_volume: str = Field(..., description="Estimated bulk quantity bracket, e.g. '100-500', '500-1000', '1000+'")
+    phone_number: Optional[str] = Field(None, max_length=50, description="Contact phone number")
+    country_code: Optional[str] = Field(None, max_length=10, description="International country dial code")
+    consent: bool = Field(False, description="Buyer consent for marketing/promotions communication")
     message_text: Optional[str] = Field(None, description="Custom specifications and requirements")
     items_inquired: Optional[List[Dict[str, Any]]] = Field(
         None, 

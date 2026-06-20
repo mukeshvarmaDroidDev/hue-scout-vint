@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Navbar } from '../components/layout/Navbar';
 import { Footer } from '../components/layout/Footer';
 import type { ClothingItem, Collection, ColorSwatch } from '../components/sections/GridShowroom';
-import { SlidersHorizontal, ArrowUpRight, ChevronLeft, ChevronRight, Check } from 'lucide-react';
+import { SlidersHorizontal, ArrowUpRight, ChevronLeft, ChevronRight, Check, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '../context/AppContext';
 
@@ -59,7 +59,7 @@ export const Collections: React.FC = () => {
   const [selectedColor, setSelectedColor] = useState<ColorSwatch | null>(null);
   const [selectedGsm, setSelectedGsm] = useState<number>(160);
   const [selectedSize, setSelectedSize] = useState<string>('M');
-  const [quantity, setQuantity] = useState<number>(100);
+  const [quantityInput, setQuantityInput] = useState<string>('100');
   const [activeImgIdx, setActiveImgIdx] = useState<number>(0);
   const [added, setAdded] = useState(false);
 
@@ -135,7 +135,7 @@ export const Collections: React.FC = () => {
       setSelectedColor(selectedItem.available_colors[0]);
       setSelectedGsm(getAvailableWeights(selectedItem.name)[0]);
       setSelectedSize('M');
-      setQuantity(100);
+      setQuantityInput('100');
       setActiveImgIdx(0);
       setAdded(false);
     } else {
@@ -149,8 +149,10 @@ export const Collections: React.FC = () => {
 
   const handleAddToInquiry = () => {
     if (!selectedItem || !selectedColor) return;
-    addToInquiry(selectedItem, selectedColor, quantity, selectedGsm, selectedSize);
+    const finalQuantity = Math.max(100, parseInt(quantityInput) || 100);
+    addToInquiry(selectedItem, selectedColor, finalQuantity, selectedGsm, selectedSize);
     setAdded(true);
+    setQuantityInput(finalQuantity.toString());
     setTimeout(() => {
       setAdded(false);
     }, 1500);
@@ -344,8 +346,16 @@ export const Collections: React.FC = () => {
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
                   transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
-                  className="overflow-hidden border border-brand-concrete/40 bg-white rounded-lg shadow-md mt-8"
+                  className="relative overflow-hidden border border-brand-concrete/40 bg-white rounded-lg shadow-md mt-8"
                 >
+                  {/* Close Button */}
+                  <button
+                    onClick={() => setSelectedItem(null)}
+                    className="absolute top-4 right-4 md:top-6 md:right-6 p-2 text-brand-charcoal/50 hover:text-brand-charcoal hover:bg-brand-beige/50 rounded-full transition-colors cursor-pointer z-10"
+                    aria-label="Close configuration"
+                  >
+                    <X size={18} />
+                  </button>
                   <div className="p-6 md:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start">
                     
                     {/* Left gallery column */}
@@ -506,8 +516,16 @@ export const Collections: React.FC = () => {
                             type="number" 
                             min={100}
                             step={50}
-                            value={quantity}
-                            onChange={(e) => setQuantity(Math.max(100, parseInt(e.target.value) || 100))}
+                            value={quantityInput}
+                            onChange={(e) => setQuantityInput(e.target.value)}
+                            onBlur={() => {
+                              const parsed = parseInt(quantityInput);
+                              if (isNaN(parsed) || parsed < 100) {
+                                setQuantityInput('100');
+                              } else {
+                                setQuantityInput(parsed.toString());
+                              }
+                            }}
                             className="w-32 bg-white border border-brand-concrete px-4 py-2 text-xs tracking-widest font-medium focus:border-brand-charcoal focus:outline-none rounded-sm"
                           />
                           <span className="text-xs text-brand-charcoal/50 tracking-wider">Units</span>
