@@ -59,7 +59,7 @@ export const Contact: React.FC = () => {
   const [selectedCountry, setSelectedCountry] = useState(countries[0]);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [consent, setConsent] = useState(false);
-  const [estimatedVolume, setEstimatedVolume] = useState('100-500');
+  const [estimatedVolume] = useState('100-500');
   const [messageText, setMessageText] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);

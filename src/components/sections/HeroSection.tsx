@@ -35,8 +35,8 @@ export const HeroSection: React.FC = () => {
             animate={{ opacity: 1, scale: 1.08 }}
             exit={{ opacity: 0 }}
             transition={{
-              opacity: { duration: 1.3, ease: 'easeInOut' },
-              scale: { duration: 4.5, ease: 'linear' }
+              duration: 0.8,
+              ease: "easeOut"
             }}
             className="absolute inset-0 bg-cover bg-center"
             style={{
