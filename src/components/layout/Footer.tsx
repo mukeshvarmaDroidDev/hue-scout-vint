@@ -4,18 +4,60 @@ import { Link } from 'react-router-dom';
 export const Footer: React.FC = () => {
   return (
     <footer className="bg-brand-obsidian text-brand-beige py-20 mt-20 border-t border-brand-charcoal/10">
-      <div className="editorial-container mx-auto flex flex-col md:flex-row justify-between items-start gap-12 md:gap-8">
+      <div className="editorial-container mx-auto flex flex-col lg:flex-row justify-between items-start gap-12 lg:gap-8">
 
         {/* About Column */}
-        <div className="space-y-4 max-w-sm w-full">
+        <div className="space-y-4 max-w-xs w-full">
           <img src="/Asset 2.svg" alt="HUESCOUT Logo" className="h-9 w-auto object-contain" />
           <p className="text-xs text-brand-beige/60 tracking-wider leading-relaxed">
             A premium digital showroom displaying bulk linen collections, dense cottons, and custom cashmere knitwear for high-end boutique houses and verified B2B retail groups.
           </p>
         </div>
 
+        {/* Quick Links Column */}
+        <div className="space-y-4 text-left">
+          <h4 className="text-xs font-bold tracking-[0.2em] uppercase text-brand-beige/80">Quick Links</h4>
+          <ul className="space-y-3.5 text-[10px] text-brand-beige/50 tracking-[0.18em] font-medium uppercase">
+            <li>
+              <Link to="/" className="hover:text-brand-beige transition-colors">
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link to="/story" className="hover:text-brand-beige transition-colors">
+                About Us
+              </Link>
+            </li>
+            <li>
+              <a href="/#services" className="hover:text-brand-beige transition-colors">
+                Services
+              </a>
+            </li>
+            <li>
+              <Link to="/products" className="hover:text-brand-beige transition-colors">
+                Products
+              </Link>
+            </li>
+            <li>
+              <Link to="/faqs" className="hover:text-brand-beige transition-colors">
+                Faqs
+              </Link>
+            </li>
+            <li>
+              <Link to="/policy" className="hover:text-brand-beige transition-colors">
+                Policy
+              </Link>
+            </li>
+            <li>
+              <Link to="/contact" className="hover:text-brand-beige transition-colors">
+                Contact Us
+              </Link>
+            </li>
+          </ul>
+        </div>
+
         {/* Contact & Socials Column */}
-        <div className="flex flex-row justify-between items-start gap-8 md:gap-20 w-full md:w-auto">
+        <div className="flex flex-col sm:flex-row justify-between items-start gap-8 sm:gap-20 w-full lg:w-auto">
           {/* Contact Details */}
           <div className="space-y-4 text-left">
             <h4 className="text-xs font-semibold tracking-[0.2em] uppercase text-brand-beige/80">Contact</h4>
@@ -32,10 +74,33 @@ export const Footer: React.FC = () => {
                 </a>
               </li>
             </ul>
+
+            {/* Inverted Aesthetic Map */}
+            <div className="pt-3">
+              <a
+                href="https://maps.google.com/?q=Andhra+Pradesh,+India"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-48 h-28 relative rounded-[20px] overflow-hidden border border-brand-beige/10 group cursor-pointer"
+              >
+                <img
+                  src="/map-andhra-pradesh.png"
+                  alt="HUESCOUT Mill Location"
+                  className="w-full h-full object-cover transition-transform duration-500 ease-[0.16,1,0.3,1] group-hover:scale-105 pointer-events-none"
+                />
+
+                {/* Glassmorphic Overlay Button */}
+                <div className="absolute inset-0 bg-[#0c0f12]/15 backdrop-blur-[0.5px] flex items-center justify-center transition-all duration-300 group-hover:bg-[#0c0f12]/25 group-hover:backdrop-blur-[1px]">
+                  <span className="px-5 py-2.5 border border-white/40 bg-white/20 backdrop-blur-md rounded-full text-white text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-300 group-hover:bg-white/30 group-hover:scale-105 shadow-sm">
+                    VIEW MAP
+                  </span>
+                </div>
+              </a>
+            </div>
           </div>
 
           {/* Social Media Links (Stacked vertically on the complete right) */}
-          <div className="flex flex-col items-end gap-6 text-brand-beige/50 pt-1">
+          <div className="flex flex-row sm:flex-col items-center sm:items-end gap-6 text-brand-beige/50 pt-1">
             <a href="#" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="hover:text-brand-beige transition-colors">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16" className="w-4 h-4">
                 <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232" />
@@ -56,13 +121,13 @@ export const Footer: React.FC = () => {
 
       </div>
 
-      <div className="editorial-container mx-auto mt-16 pt-8 border-t border-brand-beige/5 flex flex-col md:flex-row items-center justify-between text-[10px] text-brand-beige/45 tracking-[0.2em] uppercase space-y-4 md:space-y-0">
+      <div className="editorial-container mx-auto mt-16 pt-8 border-t border-brand-beige/5 flex flex-col lg:flex-row items-center justify-between text-[10px] text-brand-beige/45 tracking-[0.2em] uppercase space-y-4 lg:space-y-0">
         <div>
           © 2026 HUESCOUT. All rights reserved.
         </div>
         <div className="flex space-x-6">
-          <a href="#privacy" className="hover:text-brand-beige transition-colors">Privacy Policy</a>
-          <a href="#terms" className="hover:text-brand-beige transition-colors">Terms of Supply</a>
+          <Link to="/policy" className="hover:text-brand-beige transition-colors">Privacy Policy</Link>
+          <Link to="/policy" className="hover:text-brand-beige transition-colors">Terms of Supply</Link>
           <Link to="/auth" className="hover:text-brand-beige transition-colors">B2B Portal</Link>
         </div>
       </div>

@@ -4,9 +4,11 @@ import ScrollToTop from './components/layout/ScrollToTop';
 import Home from './pages/Home';
 import Auth from './pages/Auth';
 import Dashboard from './pages/Dashboard';
-import Inquire from './pages/Inquire';
-import Collections from './pages/Collections';
-import BrandStory from './pages/BrandStory';
+import Contact from './pages/Contact';
+import Products from './pages/Products';
+import AboutUs from './pages/AboutUs';
+import Faqs from './pages/Faqs';
+import Policy from './pages/Policy';
 
 function App() {
   return (
@@ -17,9 +19,11 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/inquire" element={<Inquire />} />
-          <Route path="/collections" element={<Collections />} />
-          <Route path="/story" element={<BrandStory />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/story" element={<AboutUs />} />
+          <Route path="/faqs" element={<Faqs />} />
+          <Route path="/policy" element={<Policy />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>

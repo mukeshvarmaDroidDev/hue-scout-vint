@@ -55,16 +55,15 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({ item, onClos
 
   // Available fabric weights based on item type
   const getAvailableWeights = (itemName: string) => {
+    if (itemName.toLowerCase().includes("hoodie")) return [300, 340, 360];
     if (itemName.toLowerCase().includes("oversized")) return [220, 240];
     if (itemName.toLowerCase().includes("regular")) return [160, 180];
     return [220]; // Default/Polo
   };
   const availableWeights = getAvailableWeights(item.name);
-  const [selectedGsm, setSelectedGsm] = useState<number>(availableWeights[0]);
 
   // Available garment sizes
   const sizes = ['S', 'M', 'L', 'XL', 'XXL'];
-  const [selectedSize, setSelectedSize] = useState<string>('M');
 
   const colorIdx = item.available_colors.findIndex(c => c.hex === selectedColor.hex);
   const colorImages = (colorIdx > -1 && item.images.length >= (colorIdx + 1) * 4)
@@ -73,7 +72,8 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({ item, onClos
 
   const handleAddToInquiry = () => {
     const finalQuantity = Math.max(100, parseInt(quantityInput) || 100);
-    addToInquiry(item, selectedColor, finalQuantity, selectedGsm, selectedSize);
+    const defaultGsm = availableWeights[0];
+    addToInquiry(item, selectedColor, finalQuantity, defaultGsm, 'Multiple');
     setAdded(true);
     setQuantityInput(finalQuantity.toString());
     setTimeout(() => {
@@ -186,8 +186,8 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({ item, onClos
                     <span className="font-semibold text-brand-charcoal">{item.fabric_composition}</span>
                   </div>
                   <div>
-                    <span className="block text-[10px] text-brand-charcoal/40 uppercase tracking-widest font-bold mb-1">Fabric Weight</span>
-                    <span className="font-semibold text-brand-charcoal">{selectedGsm} GSM</span>
+                    <span className="block text-[10px] text-brand-charcoal/40 uppercase tracking-widest font-bold mb-1">Available weights</span>
+                    <span className="font-semibold text-brand-charcoal">{availableWeights.join(', ')} GSM</span>
                   </div>
                   {item.knit_structure && (
                     <div>
@@ -225,60 +225,31 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({ item, onClos
 
                 {/* Fabric Weight Selector */}
                 <div className="space-y-3">
-                  <span className="block text-[10px] text-brand-charcoal/45 uppercase tracking-widest font-bold">Select Fabric Weight</span>
+                  <span className="block text-[10px] text-brand-charcoal/45 uppercase tracking-widest font-bold">Fabric Weight</span>
                   <div className="flex flex-wrap gap-2.5">
                     {availableWeights.map((weight) => (
-                      <button
+                      <span
                         key={weight}
-                        onClick={() => setSelectedGsm(weight)}
-                        className={`px-4 py-1.5 border text-xs tracking-wider cursor-pointer transition-all ${selectedGsm === weight ? 'border-brand-charcoal bg-brand-charcoal text-brand-beige' : 'border-brand-concrete hover:border-brand-charcoal/50 text-brand-charcoal bg-white'}`}
+                        className="px-4 py-1.5 border border-brand-concrete text-xs tracking-wider text-brand-charcoal bg-white rounded-sm select-none"
                       >
                         {weight} GSM
-                      </button>
+                      </span>
                     ))}
                   </div>
                 </div>
 
                 {/* Garment Size Selector */}
                 <div className="space-y-3">
-                  <span className="block text-[10px] text-brand-charcoal/45 uppercase tracking-widest font-bold">Select Size</span>
+                  <span className="block text-[10px] text-brand-charcoal/45 uppercase tracking-widest font-bold">Size</span>
                   <div className="flex flex-wrap gap-2.5">
                     {sizes.map((sz) => (
-                      <button
+                      <span
                         key={sz}
-                        onClick={() => setSelectedSize(sz)}
-                        className={`w-12 py-1.5 border text-xs tracking-wider font-semibold cursor-pointer transition-all text-center ${selectedSize === sz ? 'border-brand-charcoal bg-brand-charcoal text-brand-beige' : 'border-brand-concrete hover:border-brand-charcoal/50 text-brand-charcoal bg-white'}`}
+                        className="w-12 py-1.5 border border-brand-concrete text-xs tracking-wider font-semibold text-center text-brand-charcoal bg-white rounded-sm select-none"
                       >
                         {sz}
-                      </button>
+                      </span>
                     ))}
-                  </div>
-                </div>
-
-                {/* B2B Volume Selector (Minimum Order Quantity) */}
-                <div className="space-y-3 pt-2">
-                  <div className="flex justify-between items-center">
-                    <span className="block text-[10px] text-brand-charcoal/45 uppercase tracking-widest font-bold">Estimated Production Volume</span>
-                    <span className="text-[9px] uppercase tracking-wider text-brand-charcoal/40 font-bold">MOQ: 100 units per color</span>
-                  </div>
-                  <div className="flex items-center space-x-4">
-                    <input 
-                      type="number" 
-                      min={100}
-                      step={50}
-                      value={quantityInput}
-                      onChange={(e) => setQuantityInput(e.target.value)}
-                      onBlur={() => {
-                        const parsed = parseInt(quantityInput);
-                        if (isNaN(parsed) || parsed < 100) {
-                          setQuantityInput('100');
-                        } else {
-                          setQuantityInput(parsed.toString());
-                        }
-                      }}
-                      className="w-32 bg-white border border-brand-concrete px-4 py-2 text-xs tracking-widest font-medium focus:border-brand-charcoal focus:outline-none"
-                    />
-                    <span className="text-xs text-brand-charcoal/50 tracking-wider">Units</span>
                   </div>
                 </div>
               </div>

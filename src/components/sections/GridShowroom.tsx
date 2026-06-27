@@ -77,19 +77,19 @@ export const GridShowroom: React.FC = () => {
   // Selection states
   const [selectedItem, setSelectedItem] = useState<ClothingItem | null>(null);
   const [selectedColor, setSelectedColor] = useState<ColorSwatch | null>(null);
-  const [selectedGsm, setSelectedGsm] = useState<number>(160);
-  const [selectedSize, setSelectedSize] = useState<string>('M');
   const [quantityInput, setQuantityInput] = useState<string>('100');
   const [activeImgIdx, setActiveImgIdx] = useState<number>(0);
   const [added, setAdded] = useState(false);
 
   const getGsmRangeText = (itemName: string, defaultGsm: number) => {
+    if (itemName.toLowerCase().includes("hoodie")) return "300 - 360 GSM";
     if (itemName.toLowerCase().includes("oversized")) return "220 - 240 GSM";
     if (itemName.toLowerCase().includes("regular")) return "160 - 200 GSM";
     return `${defaultGsm} GSM`;
   };
 
   const getAvailableWeights = (itemName: string) => {
+    if (itemName.toLowerCase().includes("hoodie")) return [300, 340, 360];
     if (itemName.toLowerCase().includes("oversized")) return [220, 240];
     if (itemName.toLowerCase().includes("regular")) return [160, 180, 200];
     return [220]; // Default/Polo
@@ -117,7 +117,10 @@ export const GridShowroom: React.FC = () => {
         });
         
         // We ensure we only display the 3 primary types: Regular, Oversized, Polo
-        setItems(loadedItems);
+        const primaryItems = loadedItems.filter(item => 
+          item.name.toLowerCase().includes("t-shirt")
+        );
+        setItems(primaryItems);
       } catch (err) {
         console.error('Error fetching all tshirts', err);
       } finally {
@@ -147,8 +150,6 @@ export const GridShowroom: React.FC = () => {
   useEffect(() => {
     if (selectedItem) {
       setSelectedColor(selectedItem.available_colors[0]);
-      setSelectedGsm(getAvailableWeights(selectedItem.name)[0]);
-      setSelectedSize('M');
       setQuantityInput('100');
       setActiveImgIdx(0);
       setAdded(false);
@@ -158,7 +159,8 @@ export const GridShowroom: React.FC = () => {
   const handleAddToInquiry = () => {
     if (!selectedItem || !selectedColor) return;
     const finalQuantity = Math.max(100, parseInt(quantityInput) || 100);
-    addToInquiry(selectedItem, selectedColor, finalQuantity, selectedGsm, selectedSize);
+    const defaultGsm = getAvailableWeights(selectedItem.name)[0];
+    addToInquiry(selectedItem, selectedColor, finalQuantity, defaultGsm, 'Multiple');
     setAdded(true);
     setQuantityInput(finalQuantity.toString());
     setTimeout(() => {
@@ -358,8 +360,8 @@ export const GridShowroom: React.FC = () => {
                         <span className="font-semibold text-brand-charcoal">{selectedItem.fabric_composition}</span>
                       </div>
                       <div>
-                        <span className="block text-[9px] text-brand-charcoal/40 uppercase tracking-widest font-bold mb-1">Selected fabric weight</span>
-                        <span className="font-semibold text-brand-charcoal">{selectedGsm} GSM</span>
+                        <span className="block text-[9px] text-brand-charcoal/40 uppercase tracking-widest font-bold mb-1">Available fabric weights</span>
+                        <span className="font-semibold text-brand-charcoal">{getAvailableWeights(selectedItem.name).join(', ')} GSM</span>
                       </div>
                       {selectedItem.knit_structure && (
                         <div>
@@ -401,68 +403,31 @@ export const GridShowroom: React.FC = () => {
 
                     {/* Fabric Weight Selector */}
                     <div className="space-y-3">
-                      <span className="block text-[9px] text-brand-charcoal/45 uppercase tracking-widest font-bold">Select Fabric Weight</span>
+                      <span className="block text-[9px] text-brand-charcoal/45 uppercase tracking-widest font-bold">Fabric Weight</span>
                       <div className="flex flex-wrap gap-2.5">
                         {getAvailableWeights(selectedItem.name).map((weight) => (
-                          <button
+                          <span
                             key={weight}
-                            onClick={() => setSelectedGsm(weight)}
-                            className={`px-4 py-1.5 border text-xs tracking-wider cursor-pointer transition-all rounded-sm ${
-                              selectedGsm === weight 
-                                ? 'border-brand-charcoal bg-brand-charcoal text-brand-beige' 
-                                : 'border-brand-concrete hover:border-brand-charcoal/50 text-brand-charcoal bg-white'
-                            }`}
+                            className="px-4 py-1.5 border border-brand-concrete text-xs tracking-wider text-brand-charcoal bg-white rounded-sm select-none"
                           >
                             {weight} GSM
-                          </button>
+                          </span>
                         ))}
                       </div>
                     </div>
 
                     {/* Garment Size Selection Container */}
                     <div className="space-y-3">
-                      <span className="block text-[9px] text-brand-charcoal/45 uppercase tracking-widest font-bold">Select Size</span>
+                      <span className="block text-[9px] text-brand-charcoal/45 uppercase tracking-widest font-bold">Size</span>
                       <div className="flex flex-wrap gap-2.5">
                         {sizes.map((sz) => (
-                          <button
+                          <span
                             key={sz}
-                            onClick={() => setSelectedSize(sz)}
-                            className={`w-12 py-1.5 border text-xs tracking-wider font-semibold cursor-pointer transition-all text-center rounded-sm ${
-                              selectedSize === sz 
-                                ? 'border-brand-charcoal bg-brand-charcoal text-brand-beige' 
-                                : 'border-brand-concrete hover:border-brand-charcoal/50 text-brand-charcoal bg-white'
-                            }`}
+                            className="w-12 py-1.5 border border-brand-concrete text-xs tracking-wider font-semibold text-center text-brand-charcoal bg-white rounded-sm select-none"
                           >
                             {sz}
-                          </button>
+                          </span>
                         ))}
-                      </div>
-                    </div>
-
-                    {/* B2B volume selector (MOQ 100) */}
-                    <div className="space-y-3 pt-2">
-                      <div className="flex justify-between items-center">
-                        <span className="block text-[9px] text-brand-charcoal/45 uppercase tracking-widest font-bold">Estimated Production Volume</span>
-                        <span className="text-[8px] uppercase tracking-wider text-brand-charcoal/40 font-bold">MOQ: 100 units per color</span>
-                      </div>
-                      <div className="flex items-center space-x-4">
-                        <input 
-                          type="number" 
-                          min={100}
-                          step={50}
-                          value={quantityInput}
-                          onChange={(e) => setQuantityInput(e.target.value)}
-                          onBlur={() => {
-                            const parsed = parseInt(quantityInput);
-                            if (isNaN(parsed) || parsed < 100) {
-                              setQuantityInput('100');
-                            } else {
-                              setQuantityInput(parsed.toString());
-                            }
-                          }}
-                          className="w-32 bg-white border border-brand-concrete px-4 py-2 text-xs tracking-widest font-medium focus:border-brand-charcoal focus:outline-none rounded-sm"
-                        />
-                        <span className="text-xs text-brand-charcoal/50 tracking-wider">Units</span>
                       </div>
                     </div>
 

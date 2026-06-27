@@ -1,8 +1,8 @@
 import React from 'react';
 import { Navbar } from '../components/layout/Navbar';
 import { HeroSection } from '../components/sections/HeroSection';
+import { ServicesSection } from '../components/sections/ServicesSection';
 import { GridShowroom } from '../components/sections/GridShowroom';
-import { BulkProduction } from '../components/sections/BulkProduction';
 import { Footer } from '../components/layout/Footer';
 import { Link } from 'react-router-dom';
 
@@ -15,11 +15,11 @@ export const Home: React.FC = () => {
         {/* Cinematic Hero Slider */}
         <HeroSection />
 
+        {/* B2B Services Block */}
+        <ServicesSection />
+
         {/* Asymmetric Showroom Fabric Grid */}
         <GridShowroom />
-
-        {/* Production Steps Lifecycle */}
-        <BulkProduction />
 
         {/* Final Editorial Call-To-Action */}
         <section className="py-24 bg-brand-cream border-t border-brand-concrete/30 flex flex-col items-center text-center space-y-6">
@@ -32,7 +32,7 @@ export const Home: React.FC = () => {
           </p>
           <div className="pt-4">
             <Link 
-              to="/inquire" 
+              to="/contact" 
               className="text-xs uppercase tracking-[0.25em] font-semibold text-brand-beige bg-brand-charcoal px-10 py-5 hover:bg-brand-obsidian transition-colors cursor-pointer inline-block"
             >
               Access Inquiry Form

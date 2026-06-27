@@ -197,6 +197,16 @@ def seed_db():
                         f"/oversized-{suffix}-close.png"
                     ])
                 return img_list
+            elif style_prefix == "hoodie":
+                img_list = []
+                for c in colors_reg_oversized[:8]:
+                    img_list.extend([
+                        "/placeholder.svg",
+                        "/placeholder.svg",
+                        "/placeholder.svg",
+                        "/placeholder.svg"
+                    ])
+                return img_list
             img_list = []
             for c in colors_polo:
                 suffix = c["suffix"]
@@ -262,8 +272,25 @@ def seed_db():
         )
         db.add(item)
 
+        # 4. Regular Plain Hoodies
+        name = "Regular Plain Hoodie"
+        description = "A premium fleece cotton hoodie featuring a clean regular-fit drape. Constructed with a double cap stitch knit structure and a bio-washed finish for ultimate warmth and a luxury soft feel."
+        images = get_all_images("hoodie")
+        item = ClothingItem(
+            collection_id=plain_regular_col.id,
+            name=name,
+            description=description,
+            fabric_composition="Fleece Cotton",
+            gsm_weight=300,
+            knit_structure="Double Cap Stitch",
+            finish="Bio-Washed",
+            available_colors=swatches_reg_oversized[:8],
+            images=images
+        )
+        db.add(item)
+
         db.commit()
-        print("Database successfully seeded with 5 premium T-shirt variants!")
+        print("Database successfully seeded with 6 premium variants!")
 
     except Exception as e:
         db.rollback()
