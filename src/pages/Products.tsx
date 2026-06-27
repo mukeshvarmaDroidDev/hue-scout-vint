@@ -234,7 +234,7 @@ export const Collections: React.FC = () => {
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
+                  transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] as const }}
                   className="relative overflow-hidden border border-brand-concrete/40 bg-white rounded-lg shadow-md mt-8"
                 >
                   {/* Close Button */}

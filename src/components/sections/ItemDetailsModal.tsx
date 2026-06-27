@@ -107,7 +107,7 @@ export const ItemDetailsModal: React.FC<ItemDetailsModalProps> = ({ item, onClos
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
-          transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
+          transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] as const }}
           className="relative z-10 w-full max-w-4xl max-h-[90vh] bg-brand-beige flex flex-col justify-between shadow-2xl border border-brand-concrete/30 overflow-y-auto rounded-lg"
         >
           {/* Close button */}
