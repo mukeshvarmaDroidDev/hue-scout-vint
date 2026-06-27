@@ -1,0 +1,14 @@
+.git
+.gitignore
+node_modules
+dist
+backend/venv
+.system_generated
+*.db
+*.ai
+*.log
+.DS_Store
+Dockerfile
+docker-compose.yml
+nginx.conf
+README.md
