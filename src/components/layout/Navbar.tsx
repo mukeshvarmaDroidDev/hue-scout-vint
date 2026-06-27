@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import { Menu, X, ClipboardList, User as UserIcon } from 'lucide-react';
 
@@ -7,7 +7,6 @@ export const Navbar: React.FC = () => {
   const { isAuthenticated, logout, inquiryItems } = useApp();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
