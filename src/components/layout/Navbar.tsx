@@ -30,15 +30,6 @@ export const Navbar: React.FC = () => {
     };
   }, [isOpen]);
 
-  const scrollToSection = (id: string) => {
-    setIsOpen(false);
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      navigate(`/#${id}`);
-    }
-  };
 
   return (
     <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isOpen

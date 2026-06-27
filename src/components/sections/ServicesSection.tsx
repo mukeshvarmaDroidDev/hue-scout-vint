@@ -42,7 +42,7 @@ export const ServicesSection: React.FC = () => {
       y: 0,
       transition: {
         duration: 0.6,
-        ease: [0.25, 1, 0.5, 1],
+        ease: [0.25, 1, 0.5, 1] as const,
       },
     },
   };
@@ -74,7 +74,7 @@ export const ServicesSection: React.FC = () => {
               variants={cardVariants}
               whileHover={{ 
                 y: -4, 
-                transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } 
+                transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] as const } 
               }}
               className="flex flex-col items-center text-center p-8 bg-white border border-brand-concrete/25 rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.015)] hover:shadow-[0_16px_32px_rgba(0,0,0,0.035)] hover:border-brand-charcoal/20 transition-all duration-500 ease-out group"
             >
