@@ -54,8 +54,8 @@ export const ServicesSection: React.FC = () => {
         {/* Title Section */}
         <div className="text-center space-y-3 max-w-2xl mx-auto">
           <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-brand-charcoal/45">What We Offer</span>
-          <h2 className="font-serif text-3.5xl md:text-5xl font-light tracking-wide text-brand-charcoal">Our Services</h2>
-          <p className="text-xs text-brand-charcoal/55 tracking-wider leading-relaxed">
+          <h2 className="font-serif text-2.5xl sm:text-3.5xl md:text-5xl font-light tracking-wide text-brand-charcoal">Our Services</h2>
+          <p className="text-[11px] sm:text-xs text-brand-charcoal/55 tracking-wider leading-relaxed">
             Everything you need for premium bulk apparel — from custom printing to bespoke fabric and sizing.
           </p>
         </div>

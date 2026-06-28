@@ -26,13 +26,13 @@ export const Heritage: React.FC = () => {
           <div className="lg:col-span-7 lg:pl-12 space-y-8">
             <div className="space-y-3">
               <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-brand-charcoal/40">Raw Materials & Sourcing</span>
-              <h2 className="font-serif text-3xl md:text-5xl font-light tracking-wide text-brand-charcoal leading-tight">
+              <h2 className="font-serif text-2xl sm:text-3xl md:text-5xl font-light tracking-wide text-brand-charcoal leading-tight">
                 Honoring the Fibers. <br />
                 <span className="italic">Refining the Process.</span>
               </h2>
             </div>
 
-            <div className="space-y-6 text-xs text-brand-charcoal/70 tracking-wide leading-relaxed max-w-xl">
+            <div className="space-y-6 text-[11px] sm:text-xs text-brand-charcoal/70 tracking-wide leading-relaxed max-w-xl">
               <p>
                 At HUESCOUT, our production philosophy starts at the source. We select only the highest grade Belgian flax and long-staple Indian Supima cotton. By owning the vertical pipeline—from raw fibers, carding, weaving, and sewing to B2B distribution—we verify ecological accountability at every stage.
               </p>

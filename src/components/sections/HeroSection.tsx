@@ -75,14 +75,14 @@ export const HeroSection: React.FC = () => {
       {/* Hero Content */}
       <div className="absolute inset-0 flex flex-col justify-end pb-[15vh] z-20">
         <div className="editorial-container mx-auto w-full space-y-6 md:space-y-8 select-none">
-          <p className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.4em] text-[#f8f8ff]/80">
+          <p className="text-[8px] md:text-xs font-semibold uppercase tracking-[0.4em] text-[#f8f8ff]/80">
             Premium Apparel Manufacturing & Global Export Solutions
           </p>
-          <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-light tracking-wide text-[#f8f8ff] leading-[1.15] max-w-4xl">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light tracking-wide text-[#f8f8ff] leading-[1.15] max-w-4xl">
             Crafted for Brands.  <br />
             <span className="italic">Produced for Scale.</span>
           </h1>
-          <p className="text-xs md:text-sm text-[#f8f8ff]/70 tracking-[0.15em] font-light max-w-xl leading-relaxed">
+          <p className="text-[9px] sm:text-xs md:text-sm text-[#f8f8ff]/70 tracking-[0.15em] font-light max-w-xl leading-relaxed">
             A premium digital showroom displaying bulk linen collections, dense cottons, and custom cashmere knitwear for high-end boutique houses and B2B retail groups.
           </p>
 

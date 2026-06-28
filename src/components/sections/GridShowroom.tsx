@@ -196,8 +196,8 @@ export const GridShowroom: React.FC = () => {
         <div className="border-b border-brand-charcoal/10 pb-8 mb-16 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
           <div className="space-y-3 flex-1">
             <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-brand-charcoal/40">Wholesale Catalog</span>
-            <h2 className="font-serif text-3xl md:text-4xl font-light tracking-wide text-brand-charcoal">The Digital Showroom</h2>
-            <p className="text-xs text-brand-charcoal/50 tracking-wider">
+            <h2 className="font-serif text-2xl md:text-3xl lg:text-4xl font-light tracking-wide text-brand-charcoal">The Digital Showroom</h2>
+            <p className="text-[11px] sm:text-xs text-brand-charcoal/50 tracking-wider">
               Explore our curated line of premium blank styles. Click a model below to configure sizes and specifications.
             </p>
           </div>

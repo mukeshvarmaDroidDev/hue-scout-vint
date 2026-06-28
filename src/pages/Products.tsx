@@ -143,8 +143,8 @@ export const Collections: React.FC = () => {
           {/* Header Block */}
           <div className="border-b border-brand-charcoal/10 pb-8 space-y-3">
             <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-charcoal/40">Wholesale Archive</span>
-            <h1 className="font-serif text-3xl md:text-5xl font-light text-brand-charcoal">The Catalog Index</h1>
-            <p className="text-xs text-brand-charcoal/50 tracking-wider">
+            <h1 className="font-serif text-2.5xl sm:text-3xl md:text-5xl font-light text-brand-charcoal">The Catalog Index</h1>
+            <p className="text-[11px] sm:text-xs text-brand-charcoal/50 tracking-wider">
               Browse our complete registry of {allItems.length} contract-dyed fabrics and structured garments.
             </p>
           </div>

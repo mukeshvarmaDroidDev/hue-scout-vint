@@ -256,8 +256,8 @@ export const Contact: React.FC = () => {
               <div className="lg:col-span-7 space-y-8">
                 <div className="space-y-2">
                   <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-charcoal/45">Huescout Sourcing Request</span>
-                  <h1 className="font-serif text-3xl font-light text-brand-charcoal">Request Production Specs</h1>
-                  <p className="text-xs text-brand-charcoal/50 tracking-wider">
+                  <h1 className="font-serif text-2xl md:text-3xl font-light text-brand-charcoal">Request Production Specs</h1>
+                  <p className="text-[11px] sm:text-xs text-brand-charcoal/50 tracking-wider">
                     Submit your customized fabric drapes and estimated runs directly to our loom network.
                   </p>
                 </div>

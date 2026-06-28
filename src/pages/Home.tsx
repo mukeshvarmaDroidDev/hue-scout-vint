@@ -24,10 +24,10 @@ export const Home: React.FC = () => {
         {/* Final Editorial Call-To-Action */}
         <section className="py-24 bg-brand-cream border-t border-brand-concrete/30 flex flex-col items-center text-center space-y-6">
           <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-brand-charcoal/45">Atelier Network</span>
-          <h2 className="font-serif text-3xl md:text-4xl font-light tracking-wide text-brand-charcoal max-w-2xl leading-normal">
+          <h2 className="font-serif text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light tracking-wide text-brand-charcoal max-w-2xl leading-normal">
             Ready to initiate a custom collection or bulk sourcing order?
           </h2>
-          <p className="text-xs text-brand-charcoal/60 max-w-lg tracking-wider leading-relaxed">
+          <p className="text-[11px] sm:text-xs text-brand-charcoal/60 max-w-lg tracking-wider leading-relaxed">
             Submit your fabric requirements, estimated unit counts, and branding specifications. Our showroom managers will coordinate with our weaving mill in Andhra Pradesh, India to verify logistics.
           </p>
           <div className="pt-4">
