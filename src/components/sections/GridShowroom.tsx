@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { ChevronLeft, ChevronRight, Check, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -192,12 +193,23 @@ export const GridShowroom: React.FC = () => {
       <div className="editorial-container mx-auto">
         
         {/* Title Section */}
-        <div className="border-b border-brand-charcoal/10 pb-8 mb-16 space-y-3">
-          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-brand-charcoal/40">Wholesale Catalog</span>
-          <h2 className="font-serif text-3xl md:text-4xl font-light tracking-wide text-brand-charcoal">The Digital Showroom</h2>
-          <p className="text-xs text-brand-charcoal/50 tracking-wider">
-            Explore our curated line of premium blank styles. Click a model below to configure sizes and specifications.
-          </p>
+        <div className="border-b border-brand-charcoal/10 pb-8 mb-16 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+          <div className="space-y-3 flex-1">
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-brand-charcoal/40">Wholesale Catalog</span>
+            <h2 className="font-serif text-3xl md:text-4xl font-light tracking-wide text-brand-charcoal">The Digital Showroom</h2>
+            <p className="text-xs text-brand-charcoal/50 tracking-wider">
+              Explore our curated line of premium blank styles. Click a model below to configure sizes and specifications.
+            </p>
+          </div>
+          <div className="pt-2 md:pt-0">
+            <Link
+              to="/products"
+              className="group flex items-center gap-2 text-xs uppercase tracking-[0.2em] font-semibold text-brand-charcoal hover:opacity-70 transition-all duration-300 border-b border-brand-charcoal/30 pb-1 hover:border-brand-charcoal whitespace-nowrap"
+            >
+              <span>View All Products</span>
+              <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
+            </Link>
+          </div>
         </div>
 
         {/* Symmetric 3-column T-Shirt Grid */}

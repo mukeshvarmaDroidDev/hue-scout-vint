@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useApp } from '../context/AppContext';
@@ -45,7 +45,68 @@ const countries = [
   { code: '+972', flag: '🇮🇱', name: 'Israel' },
   { code: '+20', flag: '🇪🇬', name: 'Egypt' },
   { code: '+234', flag: '🇳🇬', name: 'Nigeria' },
-  { code: '+254', flag: '🇰🇪', name: 'Kenya' }
+  { code: '+254', flag: '🇰🇪', name: 'Kenya' },
+  { code: '+54', flag: '🇦🇷', name: 'Argentina' },
+  { code: '+57', flag: '🇨🇴', name: 'Colombia' },
+  { code: '+56', flag: '🇨🇱', name: 'Chile' },
+  { code: '+51', flag: '🇵🇪', name: 'Peru' },
+  { code: '+58', flag: '🇻🇪', name: 'Venezuela' },
+  { code: '+48', flag: '🇵🇱', name: 'Poland' },
+  { code: '+380', flag: '🇺🇦', name: 'Ukraine' },
+  { code: '+30', flag: '🇬🇷', name: 'Greece' },
+  { code: '+420', flag: '🇨🇿', name: 'Czech Republic' },
+  { code: '+40', flag: '🇷🇴', name: 'Romania' },
+  { code: '+36', flag: '🇭🇺', name: 'Hungary' },
+  { code: '+358', flag: '🇫🇮', name: 'Finland' },
+  { code: '+421', flag: '🇸🇰', name: 'Slovakia' },
+  { code: '+385', flag: '🇭🇷', name: 'Croatia' },
+  { code: '+359', flag: '🇧🇬', name: 'Bulgaria' },
+  { code: '+370', flag: '🇱🇹', name: 'Lithuania' },
+  { code: '+371', flag: '🇱🇻', name: 'Latvia' },
+  { code: '+372', flag: '🇪🇪', name: 'Estonia' },
+  { code: '+386', flag: '🇸🇮', name: 'Slovenia' },
+  { code: '+357', flag: '🇨🇾', name: 'Cyprus' },
+  { code: '+352', flag: '🇱🇺', name: 'Luxembourg' },
+  { code: '+356', flag: '🇲🇹', name: 'Malta' },
+  { code: '+354', flag: '🇮🇸', name: 'Iceland' },
+  { code: '+974', flag: '🇶🇦', name: 'Qatar' },
+  { code: '+965', flag: '🇰🇼', name: 'Kuwait' },
+  { code: '+968', flag: '🇴🇲', name: 'Oman' },
+  { code: '+973', flag: '🇧🇭', name: 'Bahrain' },
+  { code: '+962', flag: '🇯🇴', name: 'Jordan' },
+  { code: '+961', flag: '🇱🇧', name: 'Lebanon' },
+  { code: '+880', flag: '🇧🇩', name: 'Bangladesh' },
+  { code: '+94', flag: '🇱🇰', name: 'Sri Lanka' },
+  { code: '+977', flag: '🇳🇵', name: 'Nepal' },
+  { code: '+852', flag: '🇭🇰', name: 'Hong Kong' },
+  { code: '+886', flag: '🇹🇼', name: 'Taiwan' },
+  { code: '+853', flag: '🇲🇴', name: 'Macau' },
+  { code: '+7', flag: '🇰🇿', name: 'Kazakhstan' },
+  { code: '+998', flag: '🇺🇿', name: 'Uzbekistan' },
+  { code: '+994', flag: '🇦🇿', name: 'Azerbaijan' },
+  { code: '+212', flag: '🇲🇦', name: 'Morocco' },
+  { code: '+213', flag: '🇩🇿', name: 'Algeria' },
+  { code: '+216', flag: '🇹🇳', name: 'Tunisia' },
+  { code: '+233', flag: '🇬🇭', name: 'Ghana' },
+  { code: '+251', flag: '🇪🇹', name: 'Ethiopia' },
+  { code: '+255', flag: '🇹🇿', name: 'Tanzania' },
+  { code: '+256', flag: '🇺🇬', name: 'Uganda' },
+  { code: '+244', flag: '🇦🇴', name: 'Angola' },
+  { code: '+225', flag: '🇨🇮', name: 'Ivory Coast' },
+  { code: '+221', flag: '🇸🇳', name: 'Senegal' },
+  { code: '+506', flag: '🇨🇷', name: 'Costa Rica' },
+  { code: '+507', flag: '🇵🇦', name: 'Panama' },
+  { code: '+502', flag: '🇬🇹', name: 'Guatemala' },
+  { code: '+1', flag: '🇩🇴', name: 'Dominican Republic' },
+  { code: '+593', flag: '🇪🇨', name: 'Ecuador' },
+  { code: '+598', flag: '🇺🇾', name: 'Uruguay' },
+  { code: '+595', flag: '🇵🇾', name: 'Paraguay' },
+  { code: '+591', flag: '🇧🇴', name: 'Bolivia' },
+  { code: '+1', flag: '🇯🇲', name: 'Jamaica' },
+  { code: '+1', flag: '🇹🇹', name: 'Trinidad and Tobago' },
+  { code: '+504', flag: '🇭🇳', name: 'Honduras' },
+  { code: '+503', flag: '🇸🇻', name: 'El Salvador' },
+  { code: '+1', flag: '🇧🇸', name: 'Bahamas' }
 ];
 
 export const Contact: React.FC = () => {
@@ -64,6 +125,35 @@ export const Contact: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  // Custom Searchable Dropdown States
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setShowDropdown(false);
+      }
+    };
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => document.removeEventListener('mousedown', handleOutsideClick);
+  }, []);
+
+  const filteredCountries = countries.filter(c => {
+    const query = searchQuery.trim().toLowerCase();
+    if (!query) return true;
+
+    // Matches if the country name starts with the search query, or any word in the name starts with the search query
+    const nameMatch = c.name.toLowerCase().startsWith(query) || 
+                      c.name.toLowerCase().split(' ').some(word => word.startsWith(query));
+
+    // Matches if the phone code starts with the query (ignores the plus prefix for ease of entry)
+    const codeMatch = c.code.replace('+', '').startsWith(query.replace('+', ''));
+
+    return nameMatch || codeMatch;
+  });
 
   // Prefill user details if authenticated
   useEffect(() => {
@@ -204,34 +294,18 @@ export const Contact: React.FC = () => {
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-[10px] font-bold text-brand-charcoal block">Phone number *</label>
-                    <div className="flex items-center w-full bg-white border border-brand-concrete rounded-lg focus-within:border-brand-charcoal/80 transition-colors px-3 py-1">
-                      {/* Country Code & Flag Dropdown */}
-                      <div className="relative flex items-center pr-3 border-r border-brand-concrete/50 h-8 select-none">
-                        <span className="text-base mr-1">{selectedCountry.flag}</span>
-                        <span className="text-[10px] text-brand-charcoal/40 mr-2">▾</span>
+                    <label className="text-[9px] uppercase tracking-widest text-brand-charcoal/50 block font-bold">Phone number *</label>
+                    <div ref={dropdownRef} className="relative flex items-center w-full bg-white border border-brand-concrete rounded-lg focus-within:border-brand-charcoal/80 transition-colors px-3 py-1">
+                      {/* Country Code & Flag Trigger */}
+                      <button
+                        type="button"
+                        onClick={() => setShowDropdown(!showDropdown)}
+                        className="flex items-center gap-1.5 pr-3 border-r border-brand-concrete/50 h-8 select-none focus:outline-none cursor-pointer text-left"
+                      >
+                        <span className="text-base">{selectedCountry.flag}</span>
+                        <span className="text-[8px] text-brand-charcoal/40 font-bold">{showDropdown ? '▲' : '▼'}</span>
                         <span className="text-xs font-semibold text-brand-charcoal/80">{selectedCountry.code}</span>
-
-                        {/* Hidden native select overlapping the trigger */}
-                        <select
-                          value={`${selectedCountry.flag} ${selectedCountry.code}`}
-                          onChange={(e) => {
-                            const val = e.target.value;
-                            const match = countries.find(c => `${c.flag} ${c.code}` === val);
-                            if (match) {
-                              setSelectedCountry(match);
-                              setCountryCode(match.code);
-                            }
-                          }}
-                          className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
-                        >
-                          {countries.map((c, idx) => (
-                            <option key={idx} value={`${c.flag} ${c.code}`}>
-                              {c.flag} {c.code} ({c.name})
-                            </option>
-                          ))}
-                        </select>
-                      </div>
+                      </button>
 
                       {/* Phone Number Input */}
                       <input
@@ -242,6 +316,50 @@ export const Contact: React.FC = () => {
                         placeholder="Mobile number"
                         className="flex-1 bg-transparent px-3 py-3 text-xs tracking-wider focus:outline-none"
                       />
+
+                      {/* Custom Searchable Popover Dropdown */}
+                      {showDropdown && (
+                        <div className="absolute top-full left-0 mt-2 w-72 bg-white border border-brand-concrete/30 shadow-xl rounded-xl z-50 flex flex-col overflow-hidden max-h-[280px]">
+                          {/* Search Input Box */}
+                          <div className="p-3 border-b border-brand-charcoal/5 bg-white">
+                            <input
+                              type="text"
+                              value={searchQuery}
+                              onChange={(e) => setSearchQuery(e.target.value)}
+                              placeholder="Search"
+                              className="w-full bg-brand-cream/30 border border-brand-concrete/50 px-3 py-2 text-xs rounded-lg focus:outline-none focus:border-brand-charcoal focus:ring-1 focus:ring-brand-charcoal transition-all placeholder-brand-charcoal/40"
+                              autoFocus
+                            />
+                          </div>
+
+                          {/* Country List Scroll Area */}
+                          <div className="overflow-y-auto max-h-[200px] divide-y divide-brand-charcoal/5 bg-white">
+                            {filteredCountries.length === 0 ? (
+                              <div className="p-4 text-center text-xs text-brand-charcoal/40 tracking-wider">
+                                No results found
+                              </div>
+                            ) : (
+                              filteredCountries.map((c, idx) => (
+                                <button
+                                  key={idx}
+                                  type="button"
+                                  onClick={() => {
+                                    setSelectedCountry(c);
+                                    setCountryCode(c.code);
+                                    setShowDropdown(false);
+                                    setSearchQuery('');
+                                  }}
+                                  className="w-full text-left px-4 py-3 text-xs flex items-center gap-3 hover:bg-brand-beige/50 transition-colors cursor-pointer select-none focus:outline-none focus:bg-brand-beige/50"
+                                >
+                                  <span className="text-base select-none">{c.flag}</span>
+                                  <span className="flex-1 font-medium text-brand-charcoal">{c.name}</span>
+                                  <span className="text-brand-charcoal/50 font-mono font-semibold">{c.code}</span>
+                                </button>
+                              ))
+                            )}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
 
