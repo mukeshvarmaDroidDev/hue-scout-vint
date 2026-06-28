@@ -277,7 +277,7 @@ export const Contact: React.FC = () => {
                       value={companyName}
                       onChange={(e) => setCompanyName(e.target.value)}
                       placeholder="e.g. Huescout"
-                      className="w-full bg-white border border-brand-concrete px-4 py-3 text-[16px] md:text-xs tracking-wider focus:border-brand-charcoal focus:outline-none"
+                      className="w-full bg-white border border-brand-concrete px-4 py-3 text-[16px] md:text-xs placeholder:text-xs tracking-wider focus:border-brand-charcoal focus:outline-none"
                     />
                   </div>
 
@@ -289,7 +289,7 @@ export const Contact: React.FC = () => {
                       value={contactEmail}
                       onChange={(e) => setContactEmail(e.target.value)}
                       placeholder="e.g. buyer@huescout.com"
-                      className="w-full bg-white border border-brand-concrete px-4 py-3 text-[16px] md:text-xs tracking-wider focus:border-brand-charcoal focus:outline-none"
+                      className="w-full bg-white border border-brand-concrete px-4 py-3 text-[16px] md:text-xs placeholder:text-xs tracking-wider focus:border-brand-charcoal focus:outline-none"
                     />
                   </div>
 
@@ -320,7 +320,7 @@ export const Contact: React.FC = () => {
                         value={phoneNumber}
                         onChange={(e) => setPhoneNumber(e.target.value)}
                         placeholder="Mobile number"
-                        className="flex-1 bg-transparent px-3 py-3 text-[16px] md:text-xs tracking-wider focus:outline-none"
+                        className="flex-1 bg-transparent px-3 py-3 text-[16px] md:text-xs placeholder:text-xs tracking-wider focus:outline-none"
                       />
 
                       {/* Custom Searchable Popover Dropdown */}
@@ -333,7 +333,7 @@ export const Contact: React.FC = () => {
                               value={searchQuery}
                               onChange={(e) => setSearchQuery(e.target.value)}
                               placeholder="Search"
-                              className="w-full bg-brand-cream/30 border border-brand-concrete/50 px-3 py-2 text-[16px] md:text-xs rounded-lg focus:outline-none focus:border-brand-charcoal focus:ring-1 focus:ring-brand-charcoal transition-all placeholder-brand-charcoal/40"
+                              className="w-full bg-brand-cream/30 border border-brand-concrete/50 px-3 py-2 text-[16px] md:text-xs placeholder:text-xs rounded-lg focus:outline-none focus:border-brand-charcoal focus:ring-1 focus:ring-brand-charcoal transition-all placeholder-brand-charcoal/40"
                               autoFocus
                             />
                           </div>
@@ -384,7 +384,7 @@ export const Contact: React.FC = () => {
                       value={messageText}
                       onChange={(e) => setMessageText(e.target.value)}
                       placeholder="State any adjustments to lengths, custom coloring codes, label weaving, hanger loops, or packaging requirements."
-                      className="w-full bg-white border border-brand-concrete px-4 py-3 text-[16px] md:text-xs tracking-wider focus:border-brand-charcoal focus:outline-none resize-none leading-relaxed"
+                      className="w-full bg-white border border-brand-concrete px-4 py-3 text-[16px] md:text-xs placeholder:text-xs tracking-wider focus:border-brand-charcoal focus:outline-none resize-none leading-relaxed"
                     />
                   </div>
 
